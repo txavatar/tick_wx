@@ -4,6 +4,10 @@
   background-color: #FFFFFF;
 }
 
+.dark-mode.container {
+  background-color: #1A1A2E;
+}
+
 .filter-tabs {
   display: flex;
   gap: 16rpx;
@@ -16,6 +20,11 @@
   font-size: 26rpx;
   color: #666666;
   background-color: #F5F5F5;
+}
+
+.dark-mode .tab {
+  background-color: #16213E;
+  color: #B0B0B0;
 }
 
 .tab.active {
@@ -33,6 +42,10 @@
   background-color: #F8F8F8;
   border-radius: 16rpx;
   padding: 24rpx;
+}
+
+.dark-mode .plan-card {
+  background-color: #16213E;
 }
 
 .plan-main {
@@ -56,9 +69,17 @@
   color: #1A1A2E;
 }
 
+.dark-mode .plan-name {
+  color: #FFFFFF;
+}
+
 .plan-desc {
   font-size: 26rpx;
   color: #666666;
+}
+
+.dark-mode .plan-desc {
+  color: #B0B0B0;
 }
 
 .plan-actions {
@@ -68,9 +89,17 @@
   padding-top: 16rpx;
 }
 
+.dark-mode .plan-actions {
+  border-top-color: #333333;
+}
+
 .action-btn {
   font-size: 26rpx;
   color: #1A1A2E;
+}
+
+.dark-mode .action-btn {
+  color: #FFFFFF;
 }
 
 .action-btn.delete {
@@ -89,9 +118,17 @@
   margin-bottom: 16rpx;
 }
 
+.dark-mode .empty-text {
+  color: #FFFFFF;
+}
+
 .empty-hint {
   font-size: 26rpx;
   color: #666666;
+}
+
+.dark-mode .empty-hint {
+  color: #B0B0B0;
 }
 
 .create-btn-wrap {

@@ -1,17 +1,28 @@
+const app = getApp();
 const storage = require('../../utils/storage.js');
 
 Page({
   data: {
     filterType: 'all',
-    plans: []
+    plans: [],
+    isDarkMode: false
   },
 
   onLoad() {
+    this.loadSettings();
     this.loadPlans();
   },
 
   onShow() {
+    this.loadSettings();
     this.loadPlans();
+  },
+
+  loadSettings() {
+    const settings = app.globalData.settings;
+    this.setData({
+      isDarkMode: settings.darkMode === 'dark'
+    });
   },
 
   loadPlans() {

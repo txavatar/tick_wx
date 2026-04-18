@@ -4,6 +4,10 @@
   background-color: #FFFFFF;
 }
 
+.dark-mode.container {
+  background-color: #1A1A2E;
+}
+
 .stats {
   display: flex;
   gap: 32rpx;
@@ -16,6 +20,10 @@
   border-radius: 16rpx;
   padding: 32rpx;
   text-align: center;
+}
+
+.dark-mode .stat-item {
+  background-color: #16213E;
 }
 
 .stat-value {
@@ -32,6 +40,10 @@
   display: block;
 }
 
+.dark-mode .stat-label {
+  color: #B0B0B0;
+}
+
 .date-group {
   margin-bottom: 32rpx;
 }
@@ -41,6 +53,10 @@
   color: #999999;
   display: block;
   margin-bottom: 16rpx;
+}
+
+.dark-mode .date-header {
+  color: #666666;
 }
 
 .history-card {
@@ -53,6 +69,10 @@
   margin-bottom: 16rpx;
 }
 
+.dark-mode .history-card {
+  background-color: #16213E;
+}
+
 .history-name {
   font-size: 30rpx;
   font-weight: 600;
@@ -61,9 +81,17 @@
   margin-bottom: 8rpx;
 }
 
+.dark-mode .history-name {
+  color: #FFFFFF;
+}
+
 .history-detail {
   font-size: 24rpx;
   color: #666666;
+}
+
+.dark-mode .history-detail {
+  color: #B0B0B0;
 }
 
 .history-status {
@@ -77,9 +105,17 @@
   color: #4CAF50;
 }
 
+.dark-mode .history-status.completed {
+  background-color: #1B3D1B;
+}
+
 .history-status.stopped {
   background-color: #FFF3E0;
   color: #FF9800;
+}
+
+.dark-mode .history-status.stopped {
+  background-color: #3D2E1B;
 }
 
 .empty-state {
@@ -94,7 +130,15 @@
   margin-bottom: 16rpx;
 }
 
+.dark-mode .empty-text {
+  color: #FFFFFF;
+}
+
 .empty-hint {
   font-size: 26rpx;
   color: #666666;
+}
+
+.dark-mode .empty-hint {
+  color: #B0B0B0;
 }

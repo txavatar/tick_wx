@@ -1,13 +1,17 @@
+const app = getApp();
 const storage = require('../../utils/storage.js');
 
 Page({
   data: {
     weekCount: 0,
     monthCount: 0,
-    groupedHistory: []
+    groupedHistory: [],
+    isDarkMode: false
   },
 
   onShow() {
+    const settings = app.globalData.settings;
+    this.setData({ isDarkMode: settings.darkMode === 'dark' });
     this.loadHistory();
   },
 

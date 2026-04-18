@@ -4,10 +4,18 @@
   background-color: #FFFFFF;
 }
 
+.dark-mode .container {
+  background-color: #1A1A2E;
+}
+
 .settings-list {
-  background-color: #FFFFFF;
+  background-color: #F8F8F8;
   border-radius: 16rpx;
   overflow: hidden;
+}
+
+.dark-mode .settings-list {
+  background-color: #16213E;
 }
 
 .settings-item {
@@ -16,6 +24,12 @@
   align-items: center;
   padding: 32rpx 24rpx;
   border-bottom: 1rpx solid #F0F0F0;
+  background-color: #F8F8F8;
+}
+
+.dark-mode .settings-item {
+  background-color: #16213E;
+  border-bottom-color: #333333;
 }
 
 .settings-item:last-child {
@@ -27,15 +41,28 @@
   color: #1A1A2E;
 }
 
+.dark-mode .settings-label {
+  color: #FFFFFF;
+}
+
 .picker-value {
   font-size: 28rpx;
   color: #666666;
 }
 
+.dark-mode .picker-value {
+  color: #B0B0B0;
+}
+
 .settings-section {
   margin-top: 40rpx;
-  background-color: #FFFFFF;
+  background-color: #F8F8F8;
   border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.dark-mode .settings-section {
+  background-color: #16213E;
 }
 
 .settings-item.danger .settings-label {
@@ -53,9 +80,17 @@
   display: block;
 }
 
+.dark-mode .about-text {
+  color: #B0B0B0;
+}
+
 .about-desc {
   font-size: 24rpx;
   color: #999999;
   margin-top: 8rpx;
   display: block;
+}
+
+.dark-mode .about-desc {
+  color: #666666;
 }

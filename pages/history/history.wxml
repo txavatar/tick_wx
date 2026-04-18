@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{isDarkMode ? 'dark-mode' : ''}}">
   <view class="stats">
     <view class="stat-item">
       <text class="stat-value">{{weekCount}}</text>

@@ -4,6 +4,10 @@
   background-color: #FFFFFF;
 }
 
+.dark-mode.container {
+  background-color: #1A1A2E;
+}
+
 .form-item {
   margin-bottom: 40rpx;
 }
@@ -16,12 +20,32 @@
   margin-bottom: 16rpx;
 }
 
+.dark-mode .form-label {
+  color: #FFFFFF;
+}
+
 .form-input {
   width: 100%;
   padding: 24rpx;
   border: 2rpx solid #E5E5E5;
   border-radius: 12rpx;
   font-size: 30rpx;
+  background-color: #FFFFFF;
+  color: #1A1A2E;
+}
+
+.dark-mode .form-input {
+  background-color: #16213E;
+  border-color: #333333;
+  color: #FFFFFF;
+}
+
+.placeholder {
+  color: #999999;
+}
+
+.dark-mode .placeholder {
+  color: #666666;
 }
 
 .type-selector {
@@ -40,9 +64,18 @@
   background-color: #FFFFFF;
 }
 
+.dark-mode .type-item {
+  background-color: #16213E;
+  border-color: #333333;
+}
+
 .type-item.active {
   border-color: #E94560;
   background-color: #FFF5F7;
+}
+
+.dark-mode .type-item.active {
+  background-color: #2D1F3D;
 }
 
 .type-icon {
@@ -53,6 +86,10 @@
 .type-name {
   font-size: 26rpx;
   color: #1A1A2E;
+}
+
+.dark-mode .type-name {
+  color: #FFFFFF;
 }
 
 .form-section {
@@ -73,9 +110,17 @@
   border-bottom: 1rpx solid #F0F0F0;
 }
 
+.dark-mode .config-item {
+  border-bottom-color: #333333;
+}
+
 .config-label {
   font-size: 28rpx;
   color: #333333;
+}
+
+.dark-mode .config-label {
+  color: #FFFFFF;
 }
 
 .stepper {
@@ -95,12 +140,20 @@
   border-radius: 50%;
 }
 
+.dark-mode .stepper-btn {
+  background-color: #2D1F3D;
+}
+
 .stepper-value {
   font-size: 32rpx;
   font-weight: 600;
   color: #1A1A2E;
   min-width: 80rpx;
   text-align: center;
+}
+
+.dark-mode .stepper-value {
+  color: #FFFFFF;
 }
 
 .beat-list {
@@ -115,9 +168,17 @@
   border-bottom: 1rpx solid #F0F0F0;
 }
 
+.dark-mode .beat-item {
+  border-bottom-color: #333333;
+}
+
 .beat-label {
   font-size: 28rpx;
   color: #333333;
+}
+
+.dark-mode .beat-label {
+  color: #FFFFFF;
 }
 
 .beat-actions {
@@ -135,9 +196,18 @@
   border-radius: 8rpx;
 }
 
+.dark-mode .btn-small {
+  background-color: #16213E;
+  color: #FFFFFF;
+}
+
 .btn-small.btn-danger {
   background-color: #FFF0F0;
   color: #E94560;
+}
+
+.dark-mode .btn-small.btn-danger {
+  background-color: #2D1F3D;
 }
 
 .switch-item {
@@ -148,9 +218,17 @@
   border-bottom: 1rpx solid #F0F0F0;
 }
 
+.dark-mode .switch-item {
+  border-bottom-color: #333333;
+}
+
 .switch-label {
   font-size: 28rpx;
   color: #333333;
+}
+
+.dark-mode .switch-label {
+  color: #FFFFFF;
 }
 
 .save-btn-wrap {

@@ -19,10 +19,6 @@ function playBeep() {
   }
 }
 
-function playCountdown() {
-  playBeep();
-}
-
 function playComplete() {
   try {
     const audio = getAudioContext();
@@ -57,7 +53,6 @@ function stop() {
 
 module.exports = {
   playBeep,
-  playCountdown,
   playComplete,
   vibrateLong,
   vibrateShort,

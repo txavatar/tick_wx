@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{isDarkMode ? 'dark-mode' : ''}}">
   <view class="settings-list">
     <view class="settings-item">
       <text class="settings-label">音效提醒</text>

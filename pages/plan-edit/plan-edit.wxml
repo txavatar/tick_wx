@@ -1,7 +1,7 @@
-<view class="container">
+<view class="container {{isDarkMode ? 'dark-mode' : ''}}">
   <view class="form-item">
     <text class="form-label">计划名称</text>
-    <input class="form-input" value="{{planName}}" placeholder="请输入计划名称" bindinput="onNameInput"/>
+    <input class="form-input" value="{{planName}}" placeholder="请输入计划名称" bindinput="onNameInput" placeholder-class="placeholder"/>
   </view>
 
   <view class="form-item">
@@ -28,41 +28,41 @@
       <view class="config-item">
         <text class="config-label">组数</text>
         <view class="stepper">
-          <text class="stepper-btn" bindtap="decrease" data-key="sets">-</text>
+          <text class="stepper-btn" catchtap="decrease" data-key="sets">-</text>
           <text class="stepper-value">{{sets}}</text>
-          <text class="stepper-btn" bindtap="increase" data-key="sets">+</text>
+          <text class="stepper-btn" catchtap="increase" data-key="sets">+</text>
         </view>
       </view>
       <view class="config-item">
         <text class="config-label">{{planType === 'meditation' ? '单步时长' : '训练时长'}}(秒)</text>
         <view class="stepper">
-          <text class="stepper-btn" bindtap="decrease" data-key="workDuration">-</text>
+          <text class="stepper-btn" catchtap="decrease" data-key="workDuration">-</text>
           <text class="stepper-value">{{workDuration}}</text>
-          <text class="stepper-btn" bindtap="increase" data-key="workDuration">+</text>
+          <text class="stepper-btn" catchtap="increase" data-key="workDuration">+</text>
         </view>
       </view>
       <view class="config-item" wx:if="{{planType === 'fitness'}}">
         <text class="config-label">休息时长(秒)</text>
         <view class="stepper">
-          <text class="stepper-btn" bindtap="decrease" data-key="restDuration">-</text>
+          <text class="stepper-btn" catchtap="decrease" data-key="restDuration">-</text>
           <text class="stepper-value">{{restDuration}}</text>
-          <text class="stepper-btn" bindtap="increase" data-key="restDuration">+</text>
+          <text class="stepper-btn" catchtap="increase" data-key="restDuration">+</text>
         </view>
       </view>
       <view class="config-item" wx:if="{{planType === 'meditation'}}">
         <text class="config-label">循环次数</text>
         <view class="stepper">
-          <text class="stepper-btn" bindtap="decrease" data-key="loopCount">-</text>
+          <text class="stepper-btn" catchtap="decrease" data-key="loopCount">-</text>
           <text class="stepper-value">{{loopCount}}</text>
-          <text class="stepper-btn" bindtap="increase" data-key="loopCount">+</text>
+          <text class="stepper-btn" catchtap="increase" data-key="loopCount">+</text>
         </view>
       </view>
       <view class="config-item">
         <text class="config-label">准备时间(秒)</text>
         <view class="stepper">
-          <text class="stepper-btn" bindtap="decrease" data-key="prepDuration">-</text>
+          <text class="stepper-btn" catchtap="decrease" data-key="prepDuration">-</text>
           <text class="stepper-value">{{prepDuration}}</text>
-          <text class="stepper-btn" bindtap="increase" data-key="prepDuration">+</text>
+          <text class="stepper-btn" catchtap="increase" data-key="prepDuration">+</text>
         </view>
       </view>
     </view>
@@ -74,22 +74,22 @@
       <view class="beat-item" wx:for="{{beats}}" wx:key="index">
         <text class="beat-label">节奏点 {{index + 1}}</text>
         <view class="stepper">
-          <text class="stepper-btn" bindtap="decreaseBeat" data-index="{{index}}">-</text>
+          <text class="stepper-btn" catchtap="decreaseBeat" data-index="{{index}}">-</text>
           <text class="stepper-value">{{item.duration}}秒</text>
-          <text class="stepper-btn" bindtap="increaseBeat" data-index="{{index}}">+</text>
+          <text class="stepper-btn" catchtap="increaseBeat" data-index="{{index}}">+</text>
         </view>
       </view>
     </view>
     <view class="beat-actions">
-      <button class="btn-small" bindtap="addBeat">添加节奏点</button>
-      <button class="btn-small btn-danger" bindtap="removeBeat" wx:if="{{beats.length > 1}}">删除</button>
+      <button class="btn-small" catchtap="addBeat">添加节奏点</button>
+      <button class="btn-small btn-danger" catchtap="removeBeat" wx:if="{{beats.length > 1}}">删除</button>
     </view>
     <view class="config-item" style="margin-top: 24rpx;">
       <text class="config-label">循环次数</text>
       <view class="stepper">
-        <text class="stepper-btn" bindtap="decrease" data-key="loopCount">-</text>
+        <text class="stepper-btn" catchtap="decrease" data-key="loopCount">-</text>
         <text class="stepper-value">{{loopCount}}</text>
-        <text class="stepper-btn" bindtap="increase" data-key="loopCount">+</text>
+        <text class="stepper-btn" catchtap="increase" data-key="loopCount">+</text>
       </view>
     </view>
   </view>
@@ -107,6 +107,6 @@
   </view>
 
   <view class="save-btn-wrap">
-    <button class="btn-primary" bindtap="savePlan">{{isEdit ? '保存修改' : '保存计划'}}</button>
+    <button class="btn-primary" catchtap="savePlan">{{isEdit ? '保存修改' : '保存计划'}}</button>
   </view>
 </view>

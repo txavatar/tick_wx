@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{isDarkMode ? 'dark-mode' : ''}}">
   <view class="header">
     <text class="title">时钟嘀嗒</text>
   </view>

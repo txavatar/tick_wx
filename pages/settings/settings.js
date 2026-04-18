@@ -22,10 +22,11 @@ Page({
     this.setData({ settings });
 
     const modeMap = { 'system': 0, 'light': 1, 'dark': 2 };
-    const textMap = { 'system': '跟随系统', 'light': '浅色模式', 'dark': '深色模式' };
+    const textMap = { 'system': '跟随系统', 'light': '浅色模式', '深色模式' };
     this.setData({
       darkModeIndex: modeMap[settings.darkMode] || 0,
-      darkModeText: textMap[settings.darkMode] || '跟随系统'
+      darkModeText: textMap[settings.darkMode] || '跟随系统',
+      isDarkMode: settings.darkMode === 'dark'
     });
 
     this.applyDarkMode(settings.darkMode);
@@ -52,7 +53,8 @@ Page({
     this.updateSetting('darkMode', darkMode);
     this.setData({
       darkModeIndex: e.detail.value,
-      darkModeText: this.data.darkModeOptions[e.detail.value]
+      darkModeText: this.data.darkModeOptions[e.detail.value],
+      isDarkMode: darkMode === 'dark'
     });
     this.applyDarkMode(darkMode);
   },

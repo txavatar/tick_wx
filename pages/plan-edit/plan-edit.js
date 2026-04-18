@@ -1,3 +1,4 @@
+const app = getApp();
 const storage = require('../../utils/storage.js');
 
 Page({
@@ -13,10 +14,14 @@ Page({
     loopCount: 6,
     beats: [{ duration: 1 }],
     soundEnabled: true,
-    vibrationEnabled: true
+    vibrationEnabled: true,
+    isDarkMode: false
   },
 
   onLoad(options) {
+    const settings = app.globalData.settings;
+    this.setData({ isDarkMode: settings.darkMode === 'dark' });
+
     if (options.planId) {
       this.loadPlan(options.planId);
     }

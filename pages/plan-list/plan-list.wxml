@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container {{isDarkMode ? 'dark-mode' : ''}}">
   <view class="filter-tabs">
     <view class="tab {{filterType === 'all' ? 'active' : ''}}" bindtap="filterPlans" data-type="all">全部</view>
     <view class="tab {{filterType === 'fitness' ? 'active' : ''}}" bindtap="filterPlans" data-type="fitness">健身</view>

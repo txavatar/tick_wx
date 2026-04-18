@@ -4,6 +4,10 @@
   background-color: #FFFFFF;
 }
 
+.dark-mode.container {
+  background-color: #1A1A2E;
+}
+
 .header {
   text-align: center;
   padding: 40rpx 0;
@@ -15,11 +19,19 @@
   color: #1A1A2E;
 }
 
+.dark-mode .title {
+  color: #FFFFFF;
+}
+
 .section-title {
   font-size: 28rpx;
   color: #666666;
   margin-bottom: 20rpx;
   display: block;
+}
+
+.dark-mode .section-title {
+  color: #B0B0B0;
 }
 
 .last-plan {
@@ -35,6 +47,10 @@
   padding: 24rpx;
 }
 
+.dark-mode .last-plan-card {
+  background-color: #16213E;
+}
+
 .plan-name {
   font-size: 32rpx;
   font-weight: 600;
@@ -42,11 +58,19 @@
   display: block;
 }
 
+.dark-mode .plan-name {
+  color: #FFFFFF;
+}
+
 .plan-desc {
   font-size: 24rpx;
   color: #666666;
   margin-top: 8rpx;
   display: block;
+}
+
+.dark-mode .plan-desc {
+  color: #B0B0B0;
 }
 
 .start-btn {
@@ -77,6 +101,10 @@
   padding: 32rpx 16rpx;
 }
 
+.dark-mode .preset-item {
+  background-color: #16213E;
+}
+
 .preset-icon {
   font-size: 48rpx;
   margin-bottom: 12rpx;
@@ -86,6 +114,10 @@
   font-size: 28rpx;
   color: #1A1A2E;
   font-weight: 500;
+}
+
+.dark-mode .preset-name {
+  color: #FFFFFF;
 }
 
 .quick-start {
