@@ -1,0 +1,30 @@
+<view class="container">
+  <view class="stats">
+    <view class="stat-item">
+      <text class="stat-value">{{weekCount}}</text>
+      <text class="stat-label">本周训练</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{monthCount}}</text>
+      <text class="stat-label">本月训练</text>
+    </view>
+  </view>
+
+  <view class="history-list">
+    <view class="date-group" wx:for="{{groupedHistory}}" wx:key="date">
+      <text class="date-header">{{item.date}}</text>
+      <view class="history-card" wx:for="{{item.records}}" wx:key="id">
+        <view class="history-info">
+          <text class="history-name">{{item.planName}}</text>
+          <text class="history-detail">完成于 {{item.completedTime}} · {{item.totalDurationText}}</text>
+        </view>
+        <text class="history-status {{item.status}}">{{item.statusText}}</text>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{groupedHistory.length === 0}}">
+      <text class="empty-text">暂无训练记录</text>
+      <text class="empty-hint">开始你的第一次训练吧</text>
+    </view>
+  </view>
+</view>

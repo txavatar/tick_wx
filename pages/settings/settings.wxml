@@ -1,0 +1,33 @@
+<view class="container">
+  <view class="settings-list">
+    <view class="settings-item">
+      <text class="settings-label">音效提醒</text>
+      <switch checked="{{settings.soundEnabled}}" bindchange="toggleSound" color="#E94560"/>
+    </view>
+    <view class="settings-item">
+      <text class="settings-label">震动提醒</text>
+      <switch checked="{{settings.vibrationEnabled}}" bindchange="toggleVibration" color="#E94560"/>
+    </view>
+    <view class="settings-item">
+      <text class="settings-label">屏幕常亮</text>
+      <switch checked="{{settings.keepScreenOn}}" bindchange="toggleKeepScreen" color="#E94560"/>
+    </view>
+    <view class="settings-item">
+      <text class="settings-label">深色模式</text>
+      <picker value="{{darkModeIndex}}" range="{{darkModeOptions}}" bindchange="changeDarkMode">
+        <text class="picker-value">{{darkModeText}}</text>
+      </picker>
+    </view>
+  </view>
+
+  <view class="settings-section">
+    <view class="settings-item danger" bindtap="clearAllData">
+      <text class="settings-label">清除所有数据</text>
+    </view>
+  </view>
+
+  <view class="about">
+    <text class="about-text">时钟嘀嗒 v1.0.0</text>
+    <text class="about-desc">一款支持健身间歇训练和节奏练习的计时器</text>
+  </view>
+</view>

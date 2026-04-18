@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/settings/settings",
+    "pages/plan-list/plan-list",
+    "pages/plan-edit/plan-edit",
+    "pages/timer/timer",
+    "pages/history/history"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1A1A2E",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "时钟嘀嗒",
+    "backgroundColor": "#F5F5F5",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#E94560",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/plan-list/plan-list",
+        "text": "计划"
+      },
+      {
+        "pagePath": "pages/history/history",
+        "text": "历史"
+      },
+      {
+        "pagePath": "pages/settings/settings",
+        "text": "设置"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

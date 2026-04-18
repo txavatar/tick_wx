@@ -1,0 +1,33 @@
+<view class="container">
+  <view class="filter-tabs">
+    <view class="tab {{filterType === 'all' ? 'active' : ''}}" bindtap="filterPlans" data-type="all">全部</view>
+    <view class="tab {{filterType === 'fitness' ? 'active' : ''}}" bindtap="filterPlans" data-type="fitness">健身</view>
+    <view class="tab {{filterType === 'meditation' ? 'active' : ''}}" bindtap="filterPlans" data-type="meditation">冥想</view>
+    <view class="tab {{filterType === 'beat' ? 'active' : ''}}" bindtap="filterPlans" data-type="beat">节拍</view>
+  </view>
+
+  <view class="plan-list">
+    <view class="plan-card" wx:for="{{plans}}" wx:key="id">
+      <view class="plan-main" bindtap="startPlan" data-id="{{item.id}}">
+        <view class="plan-header">
+          <text class="plan-type-icon">{{item.typeIcon}}</text>
+          <text class="plan-name">{{item.name}}</text>
+        </view>
+        <text class="plan-desc">{{item.description}}</text>
+      </view>
+      <view class="plan-actions">
+        <text class="action-btn" bindtap="editPlan" data-id="{{item.id}}">编辑</text>
+        <text class="action-btn delete" bindtap="deletePlan" data-id="{{item.id}}">删除</text>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{plans.length === 0}}">
+      <text class="empty-text">暂无计划</text>
+      <text class="empty-hint">点击下方按钮创建训练计划</text>
+    </view>
+  </view>
+
+  <view class="create-btn-wrap">
+    <button class="btn-primary" bindtap="createPlan">新建计划</button>
+  </view>
+</view>

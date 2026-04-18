@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="header">
+    <text class="title">时钟嘀嗒</text>
+  </view>
+
+  <view class="last-plan" wx:if="{{lastPlan}}">
+    <text class="section-title">上次训练</text>
+    <view class="last-plan-card" bindtap="startLastPlan">
+      <view class="plan-info">
+        <text class="plan-name">{{lastPlan.name}}</text>
+        <text class="plan-desc">{{lastPlan.description}}</text>
+      </view>
+      <text class="start-btn">开始</text>
+    </view>
+  </view>
+
+  <view class="presets">
+    <text class="section-title">预设场景</text>
+    <view class="preset-grid">
+      <view class="preset-item" bindtap="startPreset" data-type="fitness">
+        <text class="preset-icon">🏋️</text>
+        <text class="preset-name">健身</text>
+      </view>
+      <view class="preset-item" bindtap="startPreset" data-type="meditation">
+        <text class="preset-icon">🧘</text>
+        <text class="preset-name">冥想</text>
+      </view>
+      <view class="preset-item" bindtap="startPreset" data-type="beat">
+        <text class="preset-icon">🎵</text>
+        <text class="preset-name">节拍</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="quick-start">
+    <button class="btn-primary" bindtap="goToTimer">快速开始</button>
+  </view>
+</view>

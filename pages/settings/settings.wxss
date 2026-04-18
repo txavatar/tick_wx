@@ -1,0 +1,61 @@
+.container {
+  padding: 32rpx;
+  min-height: 100vh;
+  background-color: #FFFFFF;
+}
+
+.settings-list {
+  background-color: #FFFFFF;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx 24rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.settings-item:last-child {
+  border-bottom: none;
+}
+
+.settings-label {
+  font-size: 30rpx;
+  color: #1A1A2E;
+}
+
+.picker-value {
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.settings-section {
+  margin-top: 40rpx;
+  background-color: #FFFFFF;
+  border-radius: 16rpx;
+}
+
+.settings-item.danger .settings-label {
+  color: #E94560;
+}
+
+.about {
+  margin-top: 80rpx;
+  text-align: center;
+}
+
+.about-text {
+  font-size: 28rpx;
+  color: #666666;
+  display: block;
+}
+
+.about-desc {
+  font-size: 24rpx;
+  color: #999999;
+  margin-top: 8rpx;
+  display: block;
+}
