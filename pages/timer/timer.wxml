@@ -23,9 +23,8 @@
     <text>点击开始 / 双击暂停</text>
   </view>
 
-  <view class="control-area" catchtap="toggleTimer">
-    <view class="control-btn {{isRunning ? 'pause' : 'start'}}" >
-      <text class="control-icon">{{isRunning ? '⏸' : '▶️'}}</text>
+  <view class="control-area">
+    <view class="control-btn {{isRunning ? 'pause' : 'start'}}" catchtap="toggleTimer">
       <text class="control-text">{{isRunning ? '暂停' : (phase === 'idle' ? '开始' : '继续')}}</text>
     </view>
 
