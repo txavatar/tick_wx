@@ -1,8 +1,24 @@
 let vibrationEnabled = true;
 
 function playTick() {
+  // 播放音频
+  const audio = wx.createInnerAudioContext();
+  audio.src = '/assets/audio/tick.mp3';
+  audio.volume = 1.0;
+  audio.play();
+  audio.onError(() => {
+    console.log('Tick audio play failed');
+  });
+  audio.onPlay(() => {
+    console.log('Tick audio playing');
+  });
+  // 播放完后销毁
+  setTimeout(() => {
+    audio.destroy();
+  }, 500);
+
+  // 同时震动
   if (vibrationEnabled) {
-    // 每秒轻震
     wx.vibrateShort({ type: 'light' });
   }
 }
