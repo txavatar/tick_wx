@@ -1,23 +1,24 @@
 let vibrationEnabled = true;
 
 function playTick() {
-  // 播放音频
   const audio = wx.createInnerAudioContext();
   audio.src = '/assets/audio/tick.mp3';
   audio.volume = 1.0;
   audio.play();
-  audio.onError(() => {
-    console.log('Tick audio play failed');
-  });
-  audio.onPlay(() => {
-    console.log('Tick audio playing');
-  });
-  // 播放完后销毁
-  setTimeout(() => {
-    audio.destroy();
-  }, 500);
 
-  // 同时震动
+  // 监听播放完成再销毁
+  audio.onEnded(() => {
+    console.log('Tick audio ended');
+    audio.destroy();
+  });
+
+  // 监听错误
+  audio.onError((err) => {
+    console.log('Tick audio error:', err);
+    audio.destroy();
+  });
+
+  // 震动反馈
   if (vibrationEnabled) {
     wx.vibrateShort({ type: 'light' });
   }
@@ -26,7 +27,6 @@ function playTick() {
 function playCountdownVoice(num) {
   if (!vibrationEnabled) return;
 
-  // 3-2-1 越来越强的震动模式
   if (num === 3) {
     wx.vibrateShort({ type: 'medium' });
     setTimeout(() => wx.vibrateShort({ type: 'light' }), 80);
