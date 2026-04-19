@@ -207,7 +207,10 @@ Page({
 
     if (!this.data.soundEnabled) return;
 
-    if (remaining <= 3 && remaining > 0) {
+    // 节拍模式(beat)每秒都是tick，不做3-2-1 countdown
+    if (phase === 'beat') {
+      sound.playTick();
+    } else if (remaining <= 3 && remaining > 0) {
       sound.playCountdownVoice(remaining);
     } else if (remaining > 0) {
       sound.playTick();
