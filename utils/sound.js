@@ -5,7 +5,6 @@ let isPlaying = false;
 function getTickAudio() {
   if (!tickAudio) {
     tickAudio = wx.createInnerAudioContext();
-    tickAudio.src = '/assets/audio/tick.mp3';
     tickAudio.volume = 1.0;
     tickAudio.obeyMuteSwitch = false;
   }
@@ -13,12 +12,17 @@ function getTickAudio() {
 }
 
 function playTick() {
-  if (isPlaying) return;
+  if (isPlaying) {
+    // 如果正在播放，先停止再重新播放
+    if (tickAudio) {
+      tickAudio.stop();
+    }
+  }
   isPlaying = true;
 
   const audio = getTickAudio();
-  audio.stop();
-  audio.currentTime = 0;
+  // 尝试多种路径格式
+  audio.src = 'assets/audio/tick.mp3';
 
   audio.play();
   audio.onPlay(() => {
@@ -31,11 +35,24 @@ function playTick() {
   audio.onError((err) => {
     console.log('Tick error:', err);
     isPlaying = false;
+    // 如果失败，尝试另一种路径
+    if (!isPlaying) {
+      tryAlternatePath();
+    }
   });
 
   if (vibrationEnabled) {
     wx.vibrateShort({ type: 'light' });
   }
+}
+
+function tryAlternatePath() {
+  const audio = getTickAudio();
+  audio.src = '/assets/audio/tick.mp3';
+  audio.play();
+  audio.onError((err) => {
+    console.log('Alternate path error:', err);
+  });
 }
 
 function playCountdownVoice(num) {
