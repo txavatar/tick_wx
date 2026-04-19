@@ -107,14 +107,6 @@
   padding-bottom: 60rpx;
 }
 
-.hint-text {
-  font-size: 24rpx;
-  color: #666666;
-  margin-bottom: 30rpx;
-  height: 40rpx;
-  line-height: 40rpx;
-}
-
 .control-btn {
   display: flex;
   flex-direction: column;
@@ -136,8 +128,16 @@
   font-weight: 600;
 }
 
-.stop-btn {
+.hint-text {
+  font-size: 24rpx;
+  color: #666666;
   margin-top: 24rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+}
+
+.stop-btn {
+  margin-top: 30rpx;
 }
 
 .stop-text {

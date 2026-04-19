@@ -22,11 +22,12 @@
   </view>
 
   <view class="bottom-section">
-    <view class="hint-text" wx:if="{{phase === 'idle'}}">点击开始 / 双击暂停</view>
-
     <view class="control-btn {{isRunning ? 'pause' : 'start'}}" bindtap="toggleTimer">
       <text class="control-text">{{isRunning ? '暂停' : (phase === 'idle' ? '开始' : '继续')}}</text>
     </view>
+
+    <view class="hint-text" wx:if="{{phase === 'idle'}}">点击开始 / 双击暂停</view>
+    <view class="hint-text" wx:if="{{phase !== 'idle'}}">双击暂停</view>
 
     <view class="stop-btn" bindtap="stopTimer" wx:if="{{phase !== 'idle'}}">
       <text class="stop-text">结束训练</text>
