@@ -1,35 +1,39 @@
-<view class="container" bindtap="onTap">
-  <view class="phase-indicator">
-    <text class="phase-text {{phaseClass}}">{{phaseText}}</text>
-  </view>
+<view class="container">
+  <view class="top-area">
+    <view class="phase-indicator">
+      <text class="phase-text {{phaseClass}}">{{phaseText}}</text>
+    </view>
 
-  <view class="timer-display">
-    <text class="time-value">{{displayTime}}</text>
-    <text class="time-unit" wx:if="{{phase !== 'idle'}}">秒</text>
-  </view>
+    <view class="timer-display">
+      <text class="time-value">{{displayTime}}</text>
+      <text class="time-unit" wx:if="{{phase !== 'idle'}}">秒</text>
+    </view>
 
-  <view class="progress-info">
-    <text class="set-info">{{currentSet}}/{{totalSets}} {{planType === 'beat' ? '循环' : '组'}}</text>
-    <text class="eta-info">预计完成 {{etaTime}}</text>
-  </view>
+    <view class="progress-info">
+      <text class="set-info">{{currentSet}}/{{totalSets}} {{planType === 'beat' ? '循环' : '组'}}</text>
+      <text class="eta-info">预计完成 {{etaTime}}</text>
+    </view>
 
-  <view class="progress-bar">
-    <view class="progress-track">
-      <view class="progress-fill" style="width: {{progress}}%"></view>
+    <view class="progress-bar">
+      <view class="progress-track">
+        <view class="progress-fill" style="width: {{progress}}%"></view>
+      </view>
     </view>
   </view>
 
-  <view class="hint-text" wx:if="{{phase === 'idle'}}">
-    <text>点击开始 / 双击暂停</text>
-  </view>
-
-  <view class="control-area">
-    <view class="control-btn {{isRunning ? 'pause' : 'start'}}" catchtap="toggleTimer">
-      <text class="control-text">{{isRunning ? '暂停' : (phase === 'idle' ? '开始' : '继续')}}</text>
+  <view class="bottom-area">
+    <view class="hint-text" hidden="{{phase !== 'idle'}}">
+      <text>点击开始 / 双击暂停</text>
     </view>
 
-    <view class="stop-btn" bindtap="stopTimer" wx:if="{{phase !== 'idle'}}">
-      <text class="stop-text">结束训练</text>
+    <view class="control-area">
+      <view class="control-btn {{isRunning ? 'pause' : 'start'}}" bindtap="toggleTimer">
+        <text class="control-text">{{isRunning ? '暂停' : (phase === 'idle' ? '开始' : '继续')}}</text>
+      </view>
+
+      <view class="stop-btn" bindtap="stopTimer" wx:if="{{phase !== 'idle'}}">
+        <text class="stop-text">结束训练</text>
+      </view>
     </view>
   </view>
 </view>

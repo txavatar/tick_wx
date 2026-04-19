@@ -1,18 +1,22 @@
 .container {
-  min-height: 100vh;
   height: 100vh;
   background-color: #1A1A2E;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
   padding: 60rpx 32rpx;
   box-sizing: border-box;
 }
 
+.top-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .phase-indicator {
+  text-align: center;
   margin-bottom: 20rpx;
-  padding-top: 40rpx;
 }
 
 .phase-text {
@@ -41,8 +45,8 @@
 
 .timer-display {
   display: flex;
+  justify-content: center;
   align-items: baseline;
-  margin: auto 0;
 }
 
 .time-value {
@@ -62,7 +66,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 30rpx;
+  margin-top: 40rpx;
 }
 
 .set-info {
@@ -79,7 +83,7 @@
 
 .progress-bar {
   width: 100%;
-  margin-bottom: 30rpx;
+  margin-top: 40rpx;
 }
 
 .progress-track {
@@ -96,13 +100,23 @@
   transition: width 0.3s ease;
 }
 
+.bottom-area {
+  padding-bottom: 60rpx;
+}
+
+.hint-text {
+  text-align: center;
+  font-size: 24rpx;
+  color: #666666;
+  margin-bottom: 24rpx;
+  min-height: 40rpx;
+}
+
 .control-area {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24rpx;
-  padding-bottom: 60rpx;
-  width: 100%;
 }
 
 .control-btn {
@@ -133,9 +147,4 @@
 .stop-text {
   font-size: 28rpx;
   color: #B0B0B0;
-}
-
-.hint-text {
-  font-size: 24rpx;
-  color: #666666;
 }
