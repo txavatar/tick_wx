@@ -12,20 +12,22 @@ function getAudioContext() {
 function playBeep() {
   try {
     const audio = getAudioContext();
-    audio.src = '/assets/sounds/beep.mp3';
+    audio.src = 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3';
     audio.play();
   } catch (e) {
-    console.log('Audio play failed:', e);
+    console.log('Audio play failed, using vibration');
+    wx.vibrateShort({ type: 'light' });
   }
 }
 
 function playComplete() {
   try {
     const audio = getAudioContext();
-    audio.src = '/assets/sounds/complete.mp3';
+    audio.src = 'https://assets.mixkit.co/active_storage/sfx/3004/3004-preview.mp3';
     audio.play();
   } catch (e) {
-    console.log('Audio play failed:', e);
+    console.log('Audio play failed, using vibration');
+    wx.vibrateLong({ type: 'heavy' });
   }
 }
 
