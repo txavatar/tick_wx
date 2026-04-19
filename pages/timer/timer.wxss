@@ -136,8 +136,18 @@
   line-height: 40rpx;
 }
 
+.stop-btn-placeholder {
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rpx;
+}
+
 .stop-btn {
-  margin-top: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .stop-text {

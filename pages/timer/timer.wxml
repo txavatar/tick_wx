@@ -29,8 +29,10 @@
     <view class="hint-text" wx:if="{{phase === 'idle'}}">点击开始 / 双击暂停</view>
     <view class="hint-text" wx:if="{{phase !== 'idle'}}">双击暂停</view>
 
-    <view class="stop-btn" bindtap="stopTimer" wx:if="{{phase !== 'idle'}}">
-      <text class="stop-text">结束训练</text>
+    <view class="stop-btn-placeholder">
+      <view class="stop-btn" bindtap="stopTimer" wx:if="{{phase !== 'idle'}}">
+        <text class="stop-text">结束训练</text>
+      </view>
     </view>
   </view>
 </view>
