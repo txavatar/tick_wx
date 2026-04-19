@@ -1,64 +1,26 @@
 let vibrationEnabled = true;
-let tickAudioManager = null;
-let voiceAudioManager = null;
-
-function getTickAudioManager() {
-  if (!tickAudioManager) {
-    tickAudioManager = wx.createInnerAudioContext();
-    tickAudioManager.src = '/assets/audio/tick.mp3';
-    tickAudioManager.volume = 0.5;
-  }
-  return tickAudioManager;
-}
-
-function getVoiceAudioManager() {
-  if (!voiceAudioManager) {
-    voiceAudioManager = wx.createInnerAudioContext();
-    voiceAudioManager.volume = 1.0;
-  }
-  return voiceAudioManager;
-}
 
 function playTick() {
-  if (!vibrationEnabled) return;
-
-  try {
-    const audio = getTickAudioManager();
-    audio.currentTime = 0;
-    audio.play();
-  } catch (e) {
-    console.log('Tick audio play failed:', e);
+  if (vibrationEnabled) {
+    // 每秒轻震
+    wx.vibrateShort({ type: 'light' });
   }
-
-  wx.vibrateShort({ type: 'light' });
 }
 
 function playCountdownVoice(num) {
   if (!vibrationEnabled) return;
 
-  const voiceUrls = {
-    3: '/assets/audio/3.mp3',
-    2: '/assets/audio/2.mp3',
-    1: '/assets/audio/1.mp3'
-  };
-
-  const url = voiceUrls[num];
-  if (!url) return;
-
-  try {
-    const audio = getVoiceAudioManager();
-    audio.src = url;
-    audio.play();
-  } catch (e) {
-    console.log('Voice audio play failed:', e);
-  }
-
+  // 3-2-1 越来越强的震动模式
   if (num === 3) {
     wx.vibrateShort({ type: 'medium' });
+    setTimeout(() => wx.vibrateShort({ type: 'light' }), 80);
   } else if (num === 2) {
-    wx.vibrateShort({ type: 'heavy' });
+    wx.vibrateShort({ type: 'medium' });
+    setTimeout(() => wx.vibrateShort({ type: 'medium' }), 80);
   } else if (num === 1) {
-    wx.vibrateLong({ type: 'heavy' });
+    wx.vibrateShort({ type: 'heavy' });
+    setTimeout(() => wx.vibrateShort({ type: 'medium' }), 80);
+    setTimeout(() => wx.vibrateShort({ type: 'light' }), 160);
   }
 }
 
@@ -93,12 +55,7 @@ function setVibrationEnabled(enabled) {
 }
 
 function stop() {
-  if (tickAudioManager) {
-    tickAudioManager.stop();
-  }
-  if (voiceAudioManager) {
-    voiceAudioManager.stop();
-  }
+  // No-op
 }
 
 module.exports = {
