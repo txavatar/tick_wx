@@ -22,10 +22,10 @@ Page({
     this.setData({ settings });
 
     const modeMap = { 'system': 0, 'light': 1, 'dark': 2 };
-    const textMap = { 'system': '跟随系统', 'light': '浅色模式', '深色模式' };
+    const modeText = this.data.darkModeOptions;
     this.setData({
       darkModeIndex: modeMap[settings.darkMode] || 0,
-      darkModeText: textMap[settings.darkMode] || '跟随系统',
+      darkModeText: modeText[modeMap[settings.darkMode]] || modeText[0],
       isDarkMode: settings.darkMode === 'dark'
     });
 
