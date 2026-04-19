@@ -166,13 +166,17 @@ Page({
   pauseTimer() {
     this.timerInstance.pause();
     this.setData({ isRunning: false, isPaused: true });
-    sound.vibrateShort();
+    if (this.data.soundEnabled) {
+      sound.vibrateShort();
+    }
   },
 
   resumeTimer() {
     this.timerInstance.resume();
     this.setData({ isRunning: true, isPaused: false });
-    sound.vibrateShort();
+    if (this.data.soundEnabled) {
+      sound.vibrateShort();
+    }
   },
 
   stopTimer() {
@@ -188,7 +192,9 @@ Page({
   },
 
   onPhaseStart() {
-    sound.playBeep();
+    if (this.data.soundEnabled) {
+      sound.playBeep();
+    }
   },
 
   onTick(remaining, phase, currentSet, totalSets) {
@@ -199,6 +205,8 @@ Page({
       progress: this.calculateProgress(currentSet, totalSets, remaining)
     });
 
+    if (!this.data.soundEnabled) return;
+
     if (remaining <= 3 && remaining > 0) {
       sound.playCountdownVoice(remaining);
     } else if (remaining > 0) {
@@ -207,12 +215,16 @@ Page({
   },
 
   onPhaseChange(prevPhase, newPhase) {
-    sound.playBeep();
+    if (this.data.soundEnabled) {
+      sound.playBeep();
+    }
     this.updatePhaseDisplay(newPhase);
   },
 
   onComplete() {
-    sound.playComplete();
+    if (this.data.soundEnabled) {
+      sound.playComplete();
+    }
     this.finishTimer('completed');
   },
 
