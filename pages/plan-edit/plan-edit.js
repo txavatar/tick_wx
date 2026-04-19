@@ -67,15 +67,17 @@ Page({
   increase(e) {
     const key = e.currentTarget.dataset.key;
     const value = this.data[key];
-    if (value < 999) {
+    if (value < 9999) {
       this.setData({ [key]: value + 1 });
     }
   },
 
-  onSliderChange(e) {
+  onInputChange(e) {
     const key = e.currentTarget.dataset.key;
-    const value = parseInt(e.detail.value);
-    this.setData({ [key]: value });
+    const value = parseInt(e.detail.value) || 0;
+    if (value >= 0 && value <= 9999) {
+      this.setData({ [key]: value });
+    }
   },
 
   decreaseBeat(e) {
@@ -94,10 +96,11 @@ Page({
     this.setData({ beats });
   },
 
-  onBeatSliderChange(e) {
+  onBeatInputChange(e) {
     const index = e.currentTarget.dataset.index;
     const beats = [...this.data.beats];
-    beats[index].duration = parseInt(e.detail.value);
+    const value = parseInt(e.detail.value) || 1;
+    beats[index].duration = Math.max(1, Math.min(999, value));
     this.setData({ beats });
   },
 

@@ -1,12 +1,18 @@
 .container {
-  padding: 32rpx;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #FFFFFF;
-  padding-bottom: 120rpx;
+  display: flex;
+  flex-direction: column;
 }
 
 .dark-mode.container {
   background-color: #1A1A2E;
+}
+
+.content {
+  flex: 1;
+  padding: 32rpx;
+  box-sizing: border-box;
 }
 
 .form-item {
@@ -33,6 +39,7 @@
   font-size: 30rpx;
   background-color: #FFFFFF;
   color: #1A1A2E;
+  box-sizing: border-box;
 }
 
 .dark-mode .form-input {
@@ -97,72 +104,110 @@
   margin-bottom: 40rpx;
 }
 
-.config-grid {
+.config-list {
   display: flex;
   flex-direction: column;
-  gap: 8rpx;
+  gap: 16rpx;
 }
 
 .config-item {
-  padding: 16rpx 0;
-  border-bottom: 1rpx solid #F0F0F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #F8F8F8;
+  border-radius: 12rpx;
 }
 
 .dark-mode .config-item {
-  border-bottom-color: #333333;
+  background-color: #16213E;
 }
 
 .config-label {
-  font-size: 26rpx;
+  font-size: 28rpx;
   color: #333333;
-  margin-bottom: 8rpx;
+  flex: 1;
 }
 
 .dark-mode .config-label {
   color: #FFFFFF;
 }
 
-.value-row {
+.stepper {
   display: flex;
   align-items: center;
   gap: 16rpx;
 }
 
-.config-slider {
-  flex: 1;
-  height: 40rpx;
+.stepper-btn {
+  width: 64rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  text-align: center;
+  font-size: 36rpx;
+  color: #E94560;
+  background-color: #FFF5F7;
+  border-radius: 50%;
 }
 
-.config-value {
+.dark-mode .stepper-btn {
+  background-color: #2D1F3D;
+}
+
+.stepper-btn.small {
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
   font-size: 28rpx;
-  font-weight: 600;
-  color: #E94560;
-  min-width: 80rpx;
-  text-align: right;
 }
 
-.dark-mode .config-value {
-  color: #E94560;
+.stepper-input {
+  width: 100rpx;
+  height: 64rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1A1A2E;
+  background-color: #FFFFFF;
+  border: 2rpx solid #E5E5E5;
+  border-radius: 8rpx;
+}
+
+.dark-mode .stepper-input {
+  background-color: #16213E;
+  border-color: #333333;
+  color: #FFFFFF;
+}
+
+.stepper-input.small {
+  width: 80rpx;
+  height: 48rpx;
+  font-size: 28rpx;
 }
 
 .beat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
   margin-bottom: 20rpx;
 }
 
 .beat-item {
-  padding: 16rpx 0;
-  border-bottom: 1rpx solid #F0F0F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #F8F8F8;
+  border-radius: 12rpx;
 }
 
 .dark-mode .beat-item {
-  border-bottom-color: #333333;
+  background-color: #16213E;
 }
 
 .beat-label {
-  font-size: 26rpx;
+  font-size: 28rpx;
   color: #333333;
-  margin-bottom: 8rpx;
-  display: block;
 }
 
 .dark-mode .beat-label {
@@ -202,12 +247,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20rpx 0;
-  border-bottom: 1rpx solid #F0F0F0;
+  padding: 24rpx 20rpx;
+  background-color: #F8F8F8;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
 }
 
 .dark-mode .switch-item {
-  border-bottom-color: #333333;
+  background-color: #16213E;
 }
 
 .switch-label {
@@ -220,11 +267,6 @@
 }
 
 .save-btn-wrap {
-  margin-top: 40rpx;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   padding: 24rpx 32rpx;
   background-color: #FFFFFF;
   box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.1);

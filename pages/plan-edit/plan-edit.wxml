@@ -1,103 +1,112 @@
 <view class="container {{isDarkMode ? 'dark-mode' : ''}}">
-  <view class="form-item">
-    <text class="form-label">计划名称</text>
-    <input class="form-input" value="{{planName}}" placeholder="请输入计划名称" bindinput="onNameInput" placeholder-class="placeholder"/>
-  </view>
+  <scroll-view scroll-y class="content">
+    <view class="form-item">
+      <text class="form-label">计划名称</text>
+      <input class="form-input" value="{{planName}}" placeholder="请输入计划名称" bindinput="onNameInput" placeholder-class="placeholder"/>
+    </view>
 
-  <view class="form-item">
-    <text class="form-label">场景类型</text>
-    <view class="type-selector">
-      <view class="type-item {{planType === 'fitness' ? 'active' : ''}}" bindtap="selectType" data-type="fitness">
-        <text class="type-icon">🏋️</text>
-        <text class="type-name">健身</text>
-      </view>
-      <view class="type-item {{planType === 'meditation' ? 'active' : ''}}" bindtap="selectType" data-type="meditation">
-        <text class="type-icon">🧘</text>
-        <text class="type-name">冥想</text>
-      </view>
-      <view class="type-item {{planType === 'beat' ? 'active' : ''}}" bindtap="selectType" data-type="beat">
-        <text class="type-icon">🎵</text>
-        <text class="type-name">节拍</text>
+    <view class="form-item">
+      <text class="form-label">场景类型</text>
+      <view class="type-selector">
+        <view class="type-item {{planType === 'fitness' ? 'active' : ''}}" bindtap="selectType" data-type="fitness">
+          <text class="type-icon">🏋️</text>
+          <text class="type-name">健身</text>
+        </view>
+        <view class="type-item {{planType === 'meditation' ? 'active' : ''}}" bindtap="selectType" data-type="meditation">
+          <text class="type-icon">🧘</text>
+          <text class="type-name">冥想</text>
+        </view>
+        <view class="type-item {{planType === 'beat' ? 'active' : ''}}" bindtap="selectType" data-type="beat">
+          <text class="type-icon">🎵</text>
+          <text class="type-name">节拍</text>
+        </view>
       </view>
     </view>
-  </view>
 
-  <view class="form-section" wx:if="{{planType === 'fitness' || planType === 'meditation'}}">
-    <text class="form-label">训练配置</text>
-    <view class="config-grid">
-      <view class="config-item">
-        <text class="config-label">组数</text>
-        <view class="value-row">
-          <slider class="config-slider" value="{{sets}}" min="1" max="99" step="1" data-key="sets" bindchange="onSliderChange" color="#E94560"/>
-          <text class="config-value">{{sets}}</text>
+    <view class="form-section" wx:if="{{planType === 'fitness' || planType === 'meditation'}}">
+      <text class="form-label">训练配置</text>
+      <view class="config-list">
+        <view class="config-item">
+          <text class="config-label">组数</text>
+          <view class="stepper">
+            <view class="stepper-btn" catchtap="decrease" data-key="sets">-</view>
+            <input class="stepper-input" type="number" value="{{sets}}" data-key="sets" bindchange="onInputChange"/>
+            <view class="stepper-btn" catchtap="increase" data-key="sets">+</view>
+          </view>
+        </view>
+        <view class="config-item">
+          <text class="config-label">{{planType === 'meditation' ? '单步时长' : '训练时长'}}(秒)</text>
+          <view class="stepper">
+            <view class="stepper-btn" catchtap="decrease" data-key="workDuration">-</view>
+            <input class="stepper-input" type="number" value="{{workDuration}}" data-key="workDuration" bindchange="onInputChange"/>
+            <view class="stepper-btn" catchtap="increase" data-key="workDuration">+</view>
+          </view>
+        </view>
+        <view class="config-item" wx:if="{{planType === 'fitness'}}">
+          <text class="config-label">休息时长(秒)</text>
+          <view class="stepper">
+            <view class="stepper-btn" catchtap="decrease" data-key="restDuration">-</view>
+            <input class="stepper-input" type="number" value="{{restDuration}}" data-key="restDuration" bindchange="onInputChange"/>
+            <view class="stepper-btn" catchtap="increase" data-key="restDuration">+</view>
+          </view>
+        </view>
+        <view class="config-item" wx:if="{{planType === 'meditation'}}">
+          <text class="config-label">循环次数</text>
+          <view class="stepper">
+            <view class="stepper-btn" catchtap="decrease" data-key="loopCount">-</view>
+            <input class="stepper-input" type="number" value="{{loopCount}}" data-key="loopCount" bindchange="onInputChange"/>
+            <view class="stepper-btn" catchtap="increase" data-key="loopCount">+</view>
+          </view>
+        </view>
+        <view class="config-item">
+          <text class="config-label">准备时间(秒)</text>
+          <view class="stepper">
+            <view class="stepper-btn" catchtap="decrease" data-key="prepDuration">-</view>
+            <input class="stepper-input" type="number" value="{{prepDuration}}" data-key="prepDuration" bindchange="onInputChange"/>
+            <view class="stepper-btn" catchtap="increase" data-key="prepDuration">+</view>
+          </view>
         </view>
       </view>
-      <view class="config-item">
-        <text class="config-label">{{planType === 'meditation' ? '单步时长' : '训练时长'}}(秒)</text>
-        <view class="value-row">
-          <slider class="config-slider" value="{{workDuration}}" min="5" max="300" step="5" data-key="workDuration" bindchange="onSliderChange" color="#E94560"/>
-          <text class="config-value">{{workDuration}}s</text>
+    </view>
+
+    <view class="form-section" wx:if="{{planType === 'beat'}}">
+      <text class="form-label">节拍配置</text>
+      <view class="beat-list">
+        <view class="beat-item" wx:for="{{beats}}" wx:key="index">
+          <text class="beat-label">节奏点 {{index + 1}}</text>
+          <view class="stepper">
+            <view class="stepper-btn small" catchtap="decreaseBeat" data-index="{{index}}">-</view>
+            <input class="stepper-input small" type="number" value="{{item.duration}}" data-index="{{index}}" bindchange="onBeatInputChange"/>
+            <view class="stepper-btn small" catchtap="increaseBeat" data-index="{{index}}">+</view>
+          </view>
         </view>
       </view>
-      <view class="config-item" wx:if="{{planType === 'fitness'}}">
-        <text class="config-label">休息时长(秒)</text>
-        <view class="value-row">
-          <slider class="config-slider" value="{{restDuration}}" min="0" max="120" step="5" data-key="restDuration" bindchange="onSliderChange" color="#E94560"/>
-          <text class="config-value">{{restDuration}}s</text>
-        </view>
+      <view class="beat-actions">
+        <button class="btn-small" catchtap="addBeat">添加节奏点</button>
+        <button class="btn-small btn-danger" catchtap="removeBeat" wx:if="{{beats.length > 1}}">删除</button>
       </view>
-      <view class="config-item" wx:if="{{planType === 'meditation'}}">
+      <view class="config-item" style="margin-top: 24rpx;">
         <text class="config-label">循环次数</text>
-        <view class="value-row">
-          <slider class="config-slider" value="{{loopCount}}" min="1" max="99" step="1" data-key="loopCount" bindchange="onSliderChange" color="#E94560"/>
-          <text class="config-value">{{loopCount}}</text>
-        </view>
-      </view>
-      <view class="config-item">
-        <text class="config-label">准备时间(秒)</text>
-        <view class="value-row">
-          <slider class="config-slider" value="{{prepDuration}}" min="0" max="30" step="1" data-key="prepDuration" bindchange="onSliderChange" color="#E94560"/>
-          <text class="config-value">{{prepDuration}}s</text>
+        <view class="stepper">
+          <view class="stepper-btn" catchtap="decrease" data-key="loopCount">-</view>
+          <input class="stepper-input" type="number" value="{{loopCount}}" data-key="loopCount" bindchange="onInputChange"/>
+          <view class="stepper-btn" catchtap="increase" data-key="loopCount">+</view>
         </view>
       </view>
     </view>
-  </view>
 
-  <view class="form-section" wx:if="{{planType === 'beat'}}">
-    <text class="form-label">节拍配置</text>
-    <view class="beat-list">
-      <view class="beat-item" wx:for="{{beats}}" wx:key="index">
-        <text class="beat-label">节奏点 {{index + 1}}</text>
-        <view class="value-row">
-          <slider class="config-slider" value="{{item.duration}}" min="1" max="60" step="1" data-index="{{index}}" bindchange="onBeatSliderChange" color="#E94560"/>
-          <text class="config-value">{{item.duration}}s</text>
-        </view>
+    <view class="form-section">
+      <text class="form-label">提示设置</text>
+      <view class="switch-item">
+        <text class="switch-label">音效提醒</text>
+        <switch checked="{{soundEnabled}}" bindchange="toggleSound" color="#E94560"/>
+      </view>
+      <view class="switch-item">
+        <text class="switch-label">震动提醒</text>
+        <switch checked="{{vibrationEnabled}}" bindchange="toggleVibration" color="#E94560"/>
       </view>
     </view>
-    <view class="beat-actions">
-      <button class="btn-small" catchtap="addBeat">添加节奏点</button>
-      <button class="btn-small btn-danger" catchtap="removeBeat" wx:if="{{beats.length > 1}}">删除</button>
-    </view>
-    <view class="config-item" style="margin-top: 24rpx;">
-      <text class="config-label">循环次数</text>
-      <view class="value-row">
-        <slider class="config-slider" value="{{loopCount}}" min="1" max="999" step="1" data-key="loopCount" bindchange="onSliderChange" color="#E94560"/>
-        <text class="config-value">{{loopCount}}</text>
-      </view>
-    </view>
-  </view>
-
-  <view class="form-section">
-    <text class="form-label">提示设置</text>
-    <view class="switch-item">
-      <text class="switch-label">音效提醒</text>
-      <switch checked="{{soundEnabled}}" bindchange="toggleSound" color="#E94560"/>
-    </view>
-    <view class="switch-item">
-      <text class="switch-label">震动提醒</text>
-      <switch checked="{{vibrationEnabled}}" bindchange="toggleVibration" color="#E94560"/>
-    </view>
-  </view>
+  </scroll-view>
 
   <view class="save-btn-wrap">
     <button class="btn-primary" catchtap="savePlan">{{isEdit ? '保存修改' : '保存计划'}}</button>
