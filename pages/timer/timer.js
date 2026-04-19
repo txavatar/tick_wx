@@ -233,20 +233,20 @@ Page({
   },
 
   updatePhaseDisplay(phase) {
-    const phaseMap = {
+    const phaseTexts = {
       'idle': { text: '准备开始', class: '' },
       'preparing': { text: '准备中', class: 'prep' },
       'work': { text: '训练中', class: 'work' },
       'rest': { text: '休息中', class: 'rest' },
       'beat': { text: '节拍', class: 'work' },
-      'completed': { text: '完成！', class: 'completed' }
+      'completed': { text: '完成', class: 'completed' }
     };
 
-    const phaseInfo = phaseMap[phase] || phaseMap.idle;
+    const info = phaseTexts[phase] || phaseTexts.idle;
     this.setData({
       phase,
-      phaseText: phaseInfo.text,
-      phaseClass: phaseInfo.class
+      phaseText: info.text,
+      phaseClass: info.class
     });
   },
 
