@@ -1,24 +1,38 @@
 let vibrationEnabled = true;
+let tickAudio = null;
+let isPlaying = false;
+
+function getTickAudio() {
+  if (!tickAudio) {
+    tickAudio = wx.createInnerAudioContext();
+    tickAudio.src = '/assets/audio/tick.mp3';
+    tickAudio.volume = 1.0;
+    tickAudio.obeyMuteSwitch = false;
+  }
+  return tickAudio;
+}
 
 function playTick() {
-  const audio = wx.createInnerAudioContext();
-  audio.src = '/assets/audio/tick.mp3';
-  audio.volume = 1.0;
+  if (isPlaying) return;
+  isPlaying = true;
+
+  const audio = getTickAudio();
+  audio.stop();
+  audio.currentTime = 0;
+
   audio.play();
-
-  // 监听播放完成再销毁
+  audio.onPlay(() => {
+    console.log('Tick playing');
+  });
   audio.onEnded(() => {
-    console.log('Tick audio ended');
-    audio.destroy();
+    console.log('Tick ended');
+    isPlaying = false;
   });
-
-  // 监听错误
   audio.onError((err) => {
-    console.log('Tick audio error:', err);
-    audio.destroy();
+    console.log('Tick error:', err);
+    isPlaying = false;
   });
 
-  // 震动反馈
   if (vibrationEnabled) {
     wx.vibrateShort({ type: 'light' });
   }
@@ -71,7 +85,10 @@ function setVibrationEnabled(enabled) {
 }
 
 function stop() {
-  // No-op
+  if (tickAudio) {
+    tickAudio.stop();
+    isPlaying = false;
+  }
 }
 
 module.exports = {
