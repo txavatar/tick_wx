@@ -1,5 +1,6 @@
 let vibrationEnabled = true;
 let tickAudio = null;
+let voiceAudio = null;
 let isPlaying = false;
 
 function getTickAudio() {
@@ -11,9 +12,17 @@ function getTickAudio() {
   return tickAudio;
 }
 
+function getVoiceAudio() {
+  if (!voiceAudio) {
+    voiceAudio = wx.createInnerAudioContext();
+    voiceAudio.volume = 1.0;
+    voiceAudio.obeyMuteSwitch = false;
+  }
+  return voiceAudio;
+}
+
 function playTick() {
   if (isPlaying) {
-    // 如果正在播放，先停止再重新播放
     if (tickAudio) {
       tickAudio.stop();
     }
@@ -21,24 +30,17 @@ function playTick() {
   isPlaying = true;
 
   const audio = getTickAudio();
-  // 尝试多种路径格式
   audio.src = 'assets/audio/tick.mp3';
-
   audio.play();
   audio.onPlay(() => {
     console.log('Tick playing');
   });
   audio.onEnded(() => {
-    console.log('Tick ended');
     isPlaying = false;
   });
   audio.onError((err) => {
     console.log('Tick error:', err);
     isPlaying = false;
-    // 如果失败，尝试另一种路径
-    if (!isPlaying) {
-      tryAlternatePath();
-    }
   });
 
   if (vibrationEnabled) {
@@ -46,28 +48,34 @@ function playTick() {
   }
 }
 
-function tryAlternatePath() {
-  const audio = getTickAudio();
-  audio.src = '/assets/audio/tick.mp3';
+function playCountdownVoice(num) {
+  const voiceUrls = {
+    3: 'assets/audio/3.mp3',
+    2: 'assets/audio/2.mp3',
+    1: 'assets/audio/1.mp3'
+  };
+
+  const url = voiceUrls[num];
+  if (!url) return;
+
+  const audio = getVoiceAudio();
+  audio.stop();
+  audio.src = url;
   audio.play();
   audio.onError((err) => {
-    console.log('Alternate path error:', err);
+    console.log('Voice error:', err);
   });
-}
 
-function playCountdownVoice(num) {
-  if (!vibrationEnabled) return;
-
-  if (num === 3) {
-    wx.vibrateShort({ type: 'medium' });
-    setTimeout(() => wx.vibrateShort({ type: 'light' }), 80);
-  } else if (num === 2) {
-    wx.vibrateShort({ type: 'medium' });
-    setTimeout(() => wx.vibrateShort({ type: 'medium' }), 80);
-  } else if (num === 1) {
-    wx.vibrateShort({ type: 'heavy' });
-    setTimeout(() => wx.vibrateShort({ type: 'medium' }), 80);
-    setTimeout(() => wx.vibrateShort({ type: 'light' }), 160);
+  // 配合震动
+  if (vibrationEnabled) {
+    if (num === 3) {
+      wx.vibrateShort({ type: 'medium' });
+    } else if (num === 2) {
+      wx.vibrateShort({ type: 'medium' });
+      setTimeout(() => wx.vibrateShort({ type: 'light' }), 100);
+    } else if (num === 1) {
+      wx.vibrateShort({ type: 'heavy' });
+    }
   }
 }
 
@@ -104,8 +112,11 @@ function setVibrationEnabled(enabled) {
 function stop() {
   if (tickAudio) {
     tickAudio.stop();
-    isPlaying = false;
   }
+  if (voiceAudio) {
+    voiceAudio.stop();
+  }
+  isPlaying = false;
 }
 
 module.exports = {

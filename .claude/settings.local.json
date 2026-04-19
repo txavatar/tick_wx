@@ -9,7 +9,10 @@
       "Bash(node --check utils/sound.js)",
       "Bash(node --check constants/presets.js)",
       "Bash(node --check constants/theme.js)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(mmx tts *)",
+      "Bash(mmx --help)",
+      "Bash(mmx speech *)"
     ]
   }
 }

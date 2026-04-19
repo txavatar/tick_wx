@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniMax TTS 所有声音列表</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f1a; color: #e0e0e0; min-height: 100vh; padding: 2rem; }
+  h1 { text-align: center; color: #fff; margin-bottom: 0.4rem; font-size: 1.8rem; }
+  .subtitle { text-align: center; color: #888; margin-bottom: 2rem; font-size: 0.9rem; }
+  .lang-group { margin-bottom: 1.5rem; }
+  .lang-title { font-size: 1rem; font-weight: 600; padding: 0.5rem 0.8rem; background: #1a1a30; color: #a8c7fa; border-radius: 8px; margin-bottom: 0.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+  .lang-title:hover { background: #242048; }
+  .lang-title::after { content: '▼'; font-size: 0.65rem; transition: transform 0.2s; }
+  .lang-group.collapsed .lang-title::after { transform: rotate(-90deg); }
+  .lang-group.collapsed .voices { display: none; }
+  .voices { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0.4rem; padding: 0.25rem; }
+  .voice-item { background: #16162a; border: 1px solid #252545; border-radius: 6px; padding: 0.5rem 0.7rem; font-size: 0.82rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+  .voice-item:hover { border-color: #4a6ab8; background: #1c1c38; }
+  .voice-name { flex: 1; word-break: break-all; color: #d0d0e8; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.78rem; }
+  .copy-btn { background: #2a4080; border: none; border-radius: 4px; color: #c8d8f8; padding: 0.25rem 0.7rem; cursor: pointer; font-size: 0.78rem; white-space: nowrap; flex-shrink: 0; }
+  .copy-btn:hover { background: #3a5aa0; }
+  .copy-btn.copied { background: #1a4a2a; color: #8dc88a; }
+  .search-wrap { max-width: 560px; margin: 0 auto 2rem; display: flex; gap: 0.5rem; }
+  #search { flex: 1; padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid #2a2a4a; background: #1a1a2e; color: #e0e0e0; font-size: 0.9rem; outline: none; }
+  #search:focus { border-color: #3b5bdb; }
+  .lang-count { font-size: 0.78rem; color: #6680aa; background: #1e2040; padding: 0.1rem 0.5rem; border-radius: 10px; }
+</style>
+</head>
+<body>
+<h1>MiniMax TTS 所有声音</h1>
+<p class="subtitle">共 <span id="total">0</span> 个声音 · 点击「复制命令」后在终端运行即可试听</p>
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="搜索声音名称...">
+</div>
+<div id="list"></div>
+
+<script>
+const voices = [
+  "male-qn-qingse","male-qn-jingying","male-qn-badao","male-qn-daxuesheng",
+  "female-shaonv","female-yujie","female-chengshu","female-tianmei",
+  "male-qn-qingse-jingpin","male-qn-jingying-jingpin","male-qn-badao-jingpin","male-qn-daxuesheng-jingpin",
+  "female-shaonv-jingpin","female-yujie-jingpin","female-chengshu-jingpin","female-tianmei-jingpin",
+  "clever_boy","cute_boy","lovely_girl","cartoon_pig","bingjiao_didi","junlang_nanyou",
+  "chunzhen_xuedi","lengdan_xiongzhang","badao_shaoye","tianxin_xiaoling",
+  "qiaopi_mengmei","wumei_yujie","diadia_xuemei","danya_xuejie",
+  "Santa_Claus ","Grinch","Rudolph","Arnold","Charming_Santa","Charming_Lady",
+  "Sweet_Girl","Cute_Elf","Attractive_Girl","Serene_Woman",
+  "Chinese (Mandarin)_Reliable_Executive","Chinese (Mandarin)_News_Anchor",
+  "Chinese (Mandarin)_Mature_Woman","Chinese (Mandarin)_Unrestrained_Young_Man",
+  "Arrogant_Miss","Robot_Armor","Chinese (Mandarin)_Kind-hearted_Antie",
+  "Chinese (Mandarin)_HK_Flight_Attendant","Chinese (Mandarin)_Humorous_Elder",
+  "Chinese (Mandarin)_Gentleman","Chinese (Mandarin)_Warm_Bestie",
+  "Chinese (Mandarin)_Male_Announcer","Chinese (Mandarin)_Sweet_Lady",
+  "Chinese (Mandarin)_Southern_Young_Man","Chinese (Mandarin)_Wise_Women",
+  "Chinese (Mandarin)_Gentle_Youth","Chinese (Mandarin)_Warm_Girl",
+  "Chinese (Mandarin)_Kind-hearted_Elder","Chinese (Mandarin)_Cute_Spirit",
+  "Chinese (Mandarin)_Radio_Host","Chinese (Mandarin)_Lyrical_Voice",
+  "Chinese (Mandarin)_Straightforward_Boy","Chinese (Mandarin)_Sincere_Adult",
+  "Chinese (Mandarin)_Gentle_Senior","Chinese (Mandarin)_Stubborn_Friend",
+  "Chinese (Mandarin)_Crisp_Girl","Chinese (Mandarin)_Pure-hearted_Boy",
+  "Chinese (Mandarin)_Soft_Girl",
+  "Cantonese_ProfessionalHost（F)","Cantonese_GentleLady","Cantonese_ProfessionalHost（M)",
+  "Cantonese_PlayfulMan","Cantonese_CuteGirl","Cantonese_KindWoman",
+  "English_Trustworthy_Man","English_Graceful_Lady","English_Aussie_Bloke",
+  "English_Whispering_girl","English_Diligent_Man","English_Gentle-voiced_man",
+  "Japanese_IntellectualSenior","Japanese_DecisivePrincess","Japanese_LoyalKnight",
+  "Japanese_DominantMan","Japanese_SeriousCommander","Japanese_ColdQueen",
+  "Japanese_DependableWoman","Japanese_GentleButler","Japanese_KindLady",
+  "Japanese_CalmLady","Japanese_OptimisticYouth","Japanese_GenerousIzakayaOwner",
+  "Japanese_SportyStudent","Japanese_InnocentBoy","Japanese_GracefulMaiden",
+  "Dutch_kindhearted_girl","Dutch_bossy_leader",
+  "Vietnamese_kindhearted_girl",
+  "Korean_SweetGirl","Korean_CheerfulBoyfriend","Korean_EnchantingSister","Korean_ShyGirl",
+  "Korean_ReliableSister","Korean_StrictBoss","Korean_SassyGirl","Korean_ChildhoodFriendGirl",
+  "Korean_PlayboyCharmer","Korean_ElegantPrincess","Korean_BraveFemaleWarrior","Korean_BraveYouth",
+  "Korean_CalmLady","Korean_EnthusiasticTeen","Korean_SoothingLady","Korean_IntellectualSenior",
+  "Korean_LonelyWarrior","Korean_MatureLady","Korean_InnocentBoy","Korean_CharmingSister",
+  "Korean_AthleticStudent","Korean_BraveAdventurer","Korean_CalmGentleman","Korean_WiseElf",
+  "Korean_CheerfulCoolJunior","Korean_DecisiveQueen","Korean_ColdYoungMan","Korean_MysteriousGirl",
+  "Korean_QuirkyGirl","Korean_ConsiderateSenior","Korean_CheerfulLittleSister","Korean_DominantMan",
+  "Korean_AirheadedGirl","Korean_ReliableYouth","Korean_FriendlyBigSister","Korean_GentleBoss",
+  "Korean_ColdGirl","Korean_HaughtyLady","Korean_CharmingElderSister","Korean_IntellectualMan",
+  "Korean_CaringWoman","Korean_WiseTeacher","Korean_ConfidentBoss","Korean_AthleticGirl",
+  "Korean_PossessiveMan","Korean_GentleWoman","Korean_CockyGuy","Korean_ThoughtfulWoman",
+  "Korean_OptimisticYouth",
+  "Spanish_SereneWoman","Spanish_MaturePartner","Spanish_CaptivatingStoryteller","Spanish_Narrator",
+  "Spanish_WiseScholar","Spanish_Kind-heartedGirl","Spanish_DeterminedManager","Spanish_BossyLeader",
+  "Spanish_ReservedYoungMan","Spanish_ConfidentWoman","Spanish_ThoughtfulMan","Spanish_Strong-Willed_Boy",
+  "Spanish_SophisticatedLady","Spanish_RationalMan","Spanish_AnimeCharacter","Spanish_Deep-tonedMan",
+  "Spanish_Fussyhostess","Spanish_SincereTeen","Spanish_FrankLady","Spanish_Comedian",
+  "Spanish_Debator","Spanish_ToughBoss","Spanish_Wiselady","Spanish_Steadymentor",
+  "Spanish_Jovialman","Spanish_SantaClaus","Spanish_Rudolph","Spanish_Intonategirl",
+  "Spanish_Arnold","Spanish_Ghost","Spanish_HumorousElder","Spanish_EnergeticBoy",
+  "Spanish_WhimsicalGirl","Spanish_StrictBoss","Spanish_ReliableMan","Spanish_SereneElder",
+  "Spanish_AngryMan","Spanish_AssertiveQueen","Spanish_CaringGirlfriend","Spanish_PowerfulSoldier",
+  "Spanish_PassionateWarrior","Spanish_ChattyGirl","Spanish_RomanticHusband","Spanish_CompellingGirl",
+  "Spanish_PowerfulVeteran","Spanish_SensibleManager","Spanish_ThoughtfulLady",
+  "Portuguese_SentimentalLady","Portuguese_BossyLeader","Portuguese_Wiselady",
+  "Portuguese_Strong-WilledBoy","Portuguese_Deep-VoicedGentleman","Portuguese_UpsetGirl",
+  "Portuguese_PassionateWarrior","Portuguese_AnimeCharacter","Portuguese_ConfidentWoman",
+  "Portuguese_AngryMan","Portuguese_CaptivatingStoryteller","Portuguese_Godfather",
+  "Portuguese_ReservedYoungMan","Portuguese_SmartYoungGirl","Portuguese_Kind-heartedGirl",
+  "Portuguese_Pompouslady","Portuguese_Grinch","Portuguese_Debator","Portuguese_SweetGirl",
+  "Portuguese_AttractiveGirl","Portuguese_ThoughtfulMan","Portuguese_PlayfulGirl",
+  "Portuguese_GorgeousLady","Portuguese_LovelyLady","Portuguese_SereneWoman","Portuguese_SadTeen",
+  "Portuguese_MaturePartner","Portuguese_Comedian","Portuguese_NaughtySchoolgirl",
+  "Portuguese_Narrator","Portuguese_ToughBoss","Portuguese_Fussyhostess","Portuguese_Dramatist",
+  "Portuguese_Steadymentor","Portuguese_Jovialman","Portuguese_CharmingQueen","Portuguese_SantaClaus",
+  "Portuguese_Rudolph","Portuguese_Arnold","Portuguese_CharmingSanta","Portuguese_CharmingLady",
+  "Portuguese_Ghost","Portuguese_HumorousElder","Portuguese_CalmLeader","Portuguese_GentleTeacher",
+  "Portuguese_EnergeticBoy","Portuguese_ReliableMan","Portuguese_SereneElder","Portuguese_GrimReaper",
+  "Portuguese_AssertiveQueen","Portuguese_WhimsicalGirl","Portuguese_StressedLady",
+  "Portuguese_FriendlyNeighbor","Portuguese_CaringGirlfriend","Portuguese_PowerfulSoldier",
+  "Portuguese_FascinatingBoy","Portuguese_RomanticHusband","Portuguese_StrictBoss",
+  "Portuguese_InspiringLady","Portuguese_PlayfulSpirit","Portuguese_ElegantGirl",
+  "Portuguese_CompellingGirl","Portuguese_PowerfulVeteran","Portuguese_SensibleManager",
+  "Portuguese_ThoughtfulLady","Portuguese_TheatricalActor","Portuguese_FragileBoy",
+  "Portuguese_ChattyGirl","Portuguese_Conscientiousinstructor","Portuguese_RationalMan",
+  "Portuguese_WiseScholar","Portuguese_FrankLady","Portuguese_DeterminedManager",
+  "French_Male_Speech_New","French_Female_News Anchor","French_CasualMan",
+  "French_MovieLeadFemale","French_FemaleAnchor","French_MaleNarrator",
+  "Indonesian_SweetGirl","Indonesian_ReservedYoungMan","Indonesian_CharmingGirl",
+  "Indonesian_CalmWoman","Indonesian_ConfidentWoman","Indonesian_CaringMan",
+  "Indonesian_BossyLeader","Indonesian_DeterminedBoy","Indonesian_GentleGirl",
+  "German_FriendlyMan","German_SweetLady","German_PlayfulMan",
+  "Russian_HandsomeChildhoodFriend","Russian_BrightHeroine","Russian_AmbitiousWoman",
+  "Russian_ReliableMan","Russian_CrazyQueen","Russian_PessimisticGirl",
+  "Russian_AttractiveGuy","Russian_Bad-temperedBoy",
+  "Italian_BraveHeroine","Italian_Narrator","Italian_WanderingSorcerer","Italian_DiligentLeader",
+  "Arabic_CalmWoman","Arabic_FriendlyGuy","Turkish_CalmWoman","Turkish_Trustworthyman",
+  "Ukrainian_CalmWoman","Ukrainian_WiseScholar"
+];
+
+const langMap = {};
+voices.forEach(v => {
+  let lang;
+  if (v.startsWith('Chinese (Mandarin)')) lang = 'Chinese (Mandarin)';
+  else if (v.startsWith('Cantonese')) lang = 'Cantonese';
+  else if (v.startsWith('English')) lang = 'English';
+  else if (v.startsWith('Japanese')) lang = 'Japanese';
+  else if (v.startsWith('Dutch')) lang = 'Dutch';
+  else if (v.startsWith('Vietnamese')) lang = 'Vietnamese';
+  else if (v.startsWith('Korean')) lang = 'Korean';
+  else if (v.startsWith('Spanish')) lang = 'Spanish';
+  else if (v.startsWith('Portuguese')) lang = 'Portuguese';
+  else if (v.startsWith('French')) lang = 'French';
+  else if (v.startsWith('Indonesian')) lang = 'Indonesian';
+  else if (v.startsWith('German')) lang = 'German';
+  else if (v.startsWith('Russian')) lang = 'Russian';
+  else if (v.startsWith('Italian')) lang = 'Italian';
+  else if (v.startsWith('Arabic')) lang = 'Arabic';
+  else if (v.startsWith('Turkish')) lang = 'Turkish';
+  else if (v.startsWith('Ukrainian')) lang = 'Ukrainian';
+  else lang = 'Other';
+  if (!langMap[lang]) langMap[lang] = [];
+  langMap[lang].push(v);
+});
+
+function buildUI(filter) {
+  listEl.innerHTML = '';
+  let total = 0;
+  const sortedLangs = Object.keys(langMap).sort();
+  for (const lang of sortedLangs) {
+    const filtered = langMap[lang].filter(v => v.toLowerCase().includes(filter.toLowerCase()));
+    if (filtered.length === 0) continue;
+    total += filtered.length;
+    const group = document.createElement('div');
+    group.className = 'lang-group';
+    group.innerHTML = `<div class="lang-title"><span>${lang}</span><span class="lang-count">${filtered.length}</span></div>`;
+    group.querySelector('.lang-title').addEventListener('click', () => group.classList.toggle('collapsed'));
+    const grid = document.createElement('div');
+    grid.className = 'voices';
+    filtered.forEach(name => {
+      const item = document.createElement('div');
+      item.className = 'voice-item';
+      item.innerHTML = `<span class="voice-name">${name}</span><button class="copy-btn" data-voice="${name}">复制命令</button>`;
+      grid.appendChild(item);
+    });
+    group.appendChild(grid);
+    listEl.appendChild(group);
+  }
+  document.getElementById('total').textContent = total;
+}
+
+const listEl = document.getElementById('list');
+
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('copy-btn')) {
+    const btn = e.target;
+    const voice = btn.dataset.voice;
+    const cmd = `mmx speech synthesize --text "Test" --voice "${voice}" --format mp3 --out test.mp3`;
+    navigator.clipboard.writeText(cmd).then(() => {
+      btn.textContent = '已复制!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '复制命令';
+        btn.classList.remove('copied');
+      }, 1500);
+    });
+  }
+});
+
+searchInput.addEventListener('input', () => buildUI(searchInput.value));
+
+buildUI('');
+</script>
+</body>
+</html>
