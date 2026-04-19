@@ -1,33 +1,20 @@
-let audioContext = null;
 let vibrationEnabled = true;
 
-function getAudioContext() {
-  if (!audioContext) {
-    audioContext = wx.createInnerAudioContext();
-    audioContext.autoplay = false;
-  }
-  return audioContext;
-}
-
 function playBeep() {
-  try {
-    const audio = getAudioContext();
-    audio.src = 'https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3';
-    audio.play();
-  } catch (e) {
-    console.log('Audio play failed, using vibration');
-    wx.vibrateShort({ type: 'light' });
+  if (vibrationEnabled) {
+    wx.vibrateShort({ type: 'medium' });
   }
 }
 
 function playComplete() {
-  try {
-    const audio = getAudioContext();
-    audio.src = 'https://assets.mixkit.co/active_storage/sfx/3004/3004-preview.mp3';
-    audio.play();
-  } catch (e) {
-    console.log('Audio play failed, using vibration');
+  if (vibrationEnabled) {
     wx.vibrateLong({ type: 'heavy' });
+    setTimeout(() => {
+      wx.vibrateShort({ type: 'medium' });
+    }, 200);
+    setTimeout(() => {
+      wx.vibrateShort({ type: 'medium' });
+    }, 400);
   }
 }
 
@@ -48,9 +35,7 @@ function setVibrationEnabled(enabled) {
 }
 
 function stop() {
-  if (audioContext) {
-    audioContext.stop();
-  }
+  // No-op
 }
 
 module.exports = {
