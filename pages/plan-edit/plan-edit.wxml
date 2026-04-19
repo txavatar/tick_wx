@@ -2,7 +2,7 @@
   <scroll-view scroll-y class="content">
     <view class="form-item">
       <text class="form-label">计划名称</text>
-      <input class="form-input" value="{{planName}}" placeholder="请输入计划名称" bindinput="onNameInput" placeholder-class="placeholder"/>
+      <input class="form-input" type="text" value="{{planName}}" placeholder="请输入计划名称" bindinput="onNameInput" placeholder-class="placeholder"/>
     </view>
 
     <view class="form-item">
