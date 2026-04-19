@@ -1,14 +1,18 @@
 .container {
   min-height: 100vh;
+  height: 100vh;
   background-color: #1A1A2E;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   padding: 60rpx 32rpx;
+  box-sizing: border-box;
 }
 
 .phase-indicator {
-  margin-bottom: 40rpx;
+  margin-bottom: 20rpx;
+  padding-top: 40rpx;
 }
 
 .phase-text {
@@ -38,7 +42,7 @@
 .timer-display {
   display: flex;
   align-items: baseline;
-  margin-bottom: 60rpx;
+  margin: auto 0;
 }
 
 .time-value {
@@ -58,7 +62,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 40rpx;
+  margin-bottom: 30rpx;
 }
 
 .set-info {
@@ -75,7 +79,7 @@
 
 .progress-bar {
   width: 100%;
-  margin-bottom: 80rpx;
+  margin-bottom: 30rpx;
 }
 
 .progress-track {
@@ -96,8 +100,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32rpx;
-  margin-top: auto;
+  gap: 24rpx;
+  padding-bottom: 60rpx;
 }
 
 .control-btn {
@@ -105,8 +109,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 200rpx;
-  height: 200rpx;
+  width: 180rpx;
+  height: 180rpx;
   border-radius: 50%;
   background-color: #E94560;
 }
@@ -138,5 +142,4 @@
 .hint-text {
   font-size: 24rpx;
   color: #666666;
-  margin-bottom: 40rpx;
 }

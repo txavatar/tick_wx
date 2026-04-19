@@ -10,7 +10,7 @@ Page({
     sets: 8,
     workDuration: 20,
     restDuration: 10,
-    prepDuration: 10,
+    prepDuration: 0,
     loopCount: 6,
     beats: [{ duration: 1 }],
     soundEnabled: true,
@@ -38,7 +38,7 @@ Page({
         sets: plan.config.sets || 8,
         workDuration: plan.config.workDuration || 20,
         restDuration: plan.config.restDuration || 10,
-        prepDuration: plan.config.prepDuration || 10,
+        prepDuration: plan.config.prepDuration || 0,
         loopCount: plan.config.loopCount || 6,
         beats: plan.config.beats || [{ duration: 1 }],
         soundEnabled: plan.soundConfig.soundEnabled,
@@ -59,7 +59,7 @@ Page({
   decrease(e) {
     const key = e.currentTarget.dataset.key;
     const value = this.data[key];
-    if (value > 1) {
+    if (value > 0) {
       this.setData({ [key]: value - 1 });
     }
   },
@@ -70,6 +70,12 @@ Page({
     if (value < 999) {
       this.setData({ [key]: value + 1 });
     }
+  },
+
+  onSliderChange(e) {
+    const key = e.currentTarget.dataset.key;
+    const value = parseInt(e.detail.value);
+    this.setData({ [key]: value });
   },
 
   decreaseBeat(e) {
@@ -85,6 +91,13 @@ Page({
     const index = e.currentTarget.dataset.index;
     const beats = [...this.data.beats];
     beats[index].duration += 1;
+    this.setData({ beats });
+  },
+
+  onBeatSliderChange(e) {
+    const index = e.currentTarget.dataset.index;
+    const beats = [...this.data.beats];
+    beats[index].duration = parseInt(e.detail.value);
     this.setData({ beats });
   },
 

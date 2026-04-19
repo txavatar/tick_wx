@@ -6,7 +6,7 @@ const PRESETS = {
         sets: 8,
         workDuration: 20,
         restDuration: 10,
-        prepDuration: 10
+        prepDuration: 0
       },
       soundConfig: {
         soundEnabled: true,
@@ -19,7 +19,7 @@ const PRESETS = {
         sets: 10,
         workDuration: 30,
         restDuration: 30,
-        prepDuration: 10
+        prepDuration: 0
       },
       soundConfig: {
         soundEnabled: true,
@@ -32,7 +32,7 @@ const PRESETS = {
         sets: 8,
         workDuration: 40,
         restDuration: 20,
-        prepDuration: 10
+        prepDuration: 0
       },
       soundConfig: {
         soundEnabled: true,
@@ -45,7 +45,7 @@ const PRESETS = {
       name: '4-4-4呼吸法',
       config: {
         workDuration: 12,
-        prepDuration: 5,
+        prepDuration: 0,
         loopCount: 6
       },
       soundConfig: {
@@ -57,7 +57,7 @@ const PRESETS = {
       name: '4-7-8呼吸',
       config: {
         workDuration: 19,
-        prepDuration: 5,
+        prepDuration: 0,
         loopCount: 4
       },
       soundConfig: {
@@ -70,9 +70,9 @@ const PRESETS = {
     {
       name: '60BPM',
       config: {
-        beats: [{ duration: 1 }, { duration: 1 }],
+        beats: [{ duration: 1 }],
         loopCount: 60,
-        prepDuration: 3
+        prepDuration: 0
       },
       soundConfig: {
         soundEnabled: true,
@@ -82,9 +82,9 @@ const PRESETS = {
     {
       name: '90BPM',
       config: {
-        beats: [{ duration: 1 }, { duration: 1 }],
+        beats: [{ duration: 1 }],
         loopCount: 90,
-        prepDuration: 3
+        prepDuration: 0
       },
       soundConfig: {
         soundEnabled: true,

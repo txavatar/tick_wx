@@ -1,7 +1,6 @@
 const app = getApp();
 const storage = require('../../utils/storage.js');
 const timer = require('../../utils/timer.js');
-const sound = require('../../utils/sound.js');
 
 Page({
   data: {
@@ -21,7 +20,7 @@ Page({
       sets: 8,
       workDuration: 20,
       restDuration: 10,
-      prepDuration: 10,
+      prepDuration: 0,
       loopCount: 6
     },
     soundEnabled: true,
@@ -119,7 +118,7 @@ Page({
       sets: 8,
       workDuration: 20,
       restDuration: 10,
-      prepDuration: 10,
+      prepDuration: 0,
       loopCount: 6
     };
     this.setData({
@@ -160,6 +159,7 @@ Page({
       phase: 'preparing'
     });
     this.updatePhaseDisplay('preparing');
+    this.onPhaseStart();
   },
 
   pauseTimer() {
@@ -190,6 +190,12 @@ Page({
     });
   },
 
+  onPhaseStart() {
+    if (this.data.vibrationEnabled) {
+      wx.vibrateLong({ type: 'heavy' });
+    }
+  },
+
   onTick(remaining, phase, currentSet, totalSets) {
     this.setData({
       displayTime: remaining,
@@ -198,36 +204,41 @@ Page({
       progress: this.calculateProgress(currentSet, totalSets, remaining)
     });
 
-    if (this.data.soundEnabled && remaining <= 3 && remaining > 0) {
-      sound.playBeep();
-    }
-    if (this.data.vibrationEnabled && remaining <= 3 && remaining > 0) {
+    if (!this.data.vibrationEnabled) return;
+
+    if (remaining <= 3 && remaining > 0) {
+      if (remaining === 3) {
+        wx.vibrateShort({ type: 'heavy' });
+        setTimeout(() => wx.vibrateShort({ type: 'medium' }), 100);
+      } else if (remaining === 2) {
+        wx.vibrateShort({ type: 'heavy' });
+        setTimeout(() => wx.vibrateShort({ type: 'medium' }), 100);
+        setTimeout(() => wx.vibrateShort({ type: 'medium' }), 200);
+      } else if (remaining === 1) {
+        wx.vibrateShort({ type: 'heavy' });
+        setTimeout(() => wx.vibrateShort({ type: 'medium' }), 100);
+        setTimeout(() => wx.vibrateShort({ type: 'medium' }), 200);
+        setTimeout(() => wx.vibrateShort({ type: 'heavy' }), 300);
+      }
+    } else {
       wx.vibrateShort({ type: 'light' });
     }
   },
 
   onPhaseChange(prevPhase, newPhase) {
-    if (this.data.soundEnabled) {
-      if (newPhase === 'work' || newPhase === 'beat') {
-        sound.playBeep();
-      } else if (newPhase === 'rest') {
-        sound.playBeep();
-      }
-    }
-
     if (this.data.vibrationEnabled) {
       wx.vibrateLong({ type: 'heavy' });
+      setTimeout(() => wx.vibrateShort({ type: 'medium' }), 150);
     }
-
     this.updatePhaseDisplay(newPhase);
   },
 
   onComplete() {
-    if (this.data.soundEnabled) {
-      sound.playComplete();
-    }
     if (this.data.vibrationEnabled) {
       wx.vibrateLong({ type: 'heavy' });
+      setTimeout(() => wx.vibrateShort({ type: 'heavy' }), 200);
+      setTimeout(() => wx.vibrateShort({ type: 'heavy' }), 400);
+      setTimeout(() => wx.vibrateShort({ type: 'heavy' }), 600);
     }
     this.finishTimer('completed');
   },

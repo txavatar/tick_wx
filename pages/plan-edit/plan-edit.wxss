@@ -2,6 +2,7 @@
   padding: 32rpx;
   min-height: 100vh;
   background-color: #FFFFFF;
+  padding-bottom: 120rpx;
 }
 
 .dark-mode.container {
@@ -99,14 +100,11 @@
 .config-grid {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 8rpx;
 }
 
 .config-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20rpx 0;
+  padding: 16rpx 0;
   border-bottom: 1rpx solid #F0F0F0;
 }
 
@@ -115,45 +113,36 @@
 }
 
 .config-label {
-  font-size: 28rpx;
+  font-size: 26rpx;
   color: #333333;
+  margin-bottom: 8rpx;
 }
 
 .dark-mode .config-label {
   color: #FFFFFF;
 }
 
-.stepper {
+.value-row {
   display: flex;
   align-items: center;
-  gap: 24rpx;
+  gap: 16rpx;
 }
 
-.stepper-btn {
-  width: 56rpx;
-  height: 56rpx;
-  line-height: 56rpx;
-  text-align: center;
-  font-size: 36rpx;
-  color: #E94560;
-  background-color: #FFF5F7;
-  border-radius: 50%;
+.config-slider {
+  flex: 1;
+  height: 40rpx;
 }
 
-.dark-mode .stepper-btn {
-  background-color: #2D1F3D;
-}
-
-.stepper-value {
-  font-size: 32rpx;
+.config-value {
+  font-size: 28rpx;
   font-weight: 600;
-  color: #1A1A2E;
+  color: #E94560;
   min-width: 80rpx;
-  text-align: center;
+  text-align: right;
 }
 
-.dark-mode .stepper-value {
-  color: #FFFFFF;
+.dark-mode .config-value {
+  color: #E94560;
 }
 
 .beat-list {
@@ -161,10 +150,7 @@
 }
 
 .beat-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20rpx 0;
+  padding: 16rpx 0;
   border-bottom: 1rpx solid #F0F0F0;
 }
 
@@ -173,8 +159,10 @@
 }
 
 .beat-label {
-  font-size: 28rpx;
+  font-size: 26rpx;
   color: #333333;
+  margin-bottom: 8rpx;
+  display: block;
 }
 
 .dark-mode .beat-label {
@@ -232,7 +220,19 @@
 }
 
 .save-btn-wrap {
-  margin-top: 60rpx;
+  margin-top: 40rpx;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24rpx 32rpx;
+  background-color: #FFFFFF;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .save-btn-wrap {
+  background-color: #1A1A2E;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.3);
 }
 
 .btn-primary {
