@@ -154,13 +154,15 @@ Page({
   startTimer() {
     this.startTime = Date.now();
     this.timerInstance.start();
+    // 不在这里设置phase，让onTick或onPhaseChange来处理
     this.setData({
       isRunning: true,
-      isPaused: false,
-      phase: 'preparing'
+      isPaused: false
     });
-    this.updatePhaseDisplay('preparing');
-    this.onPhaseStart();
+    // 如果没有准备时间，直接触发开始音效
+    if (this.data.config.prepDuration === 0) {
+      this.onPhaseStart();
+    }
   },
 
   pauseTimer() {
