@@ -222,6 +222,12 @@ Page({
   onPhaseChange(prevPhase, newPhase) {
     if (this.data.soundEnabled) {
       sound.playBeep();
+      // 阶段切换时播放语音提示
+      if (newPhase === 'rest') {
+        sound.playPhaseVoice('rest');
+      } else if (newPhase === 'work' && prevPhase !== 'preparing') {
+        sound.playPhaseVoice('work');
+      }
     }
     this.updatePhaseDisplay(newPhase);
   },

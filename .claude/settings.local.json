@@ -12,7 +12,23 @@
       "Bash(git push *)",
       "Bash(mmx tts *)",
       "Bash(mmx --help)",
-      "Bash(mmx speech *)"
+      "Bash(mmx speech *)",
+      "Bash(say -v '?')",
+      "Bash(say -v Samantha \"休息一下\" -o /tmp/rest.aiff)",
+      "Bash(afconvert -f MP4F -d aac /tmp/rest.aiff /tmp/rest.mp4)",
+      "Bash(mv /tmp/rest.mp4 ~/Desktop/休息一下.mp3)",
+      "Bash(rm /tmp/rest.aiff)",
+      "Bash(say -v Samantha \"休息一下\" -o ~/Desktop/休息一下.caf)",
+      "Read(//Users/shi/Desktop/**)",
+      "Bash(say -v Samantha \"休息一下\" -o rest.caf)",
+      "Bash(afconvert rest.caf -f MP4F -d aac rest.mp4)",
+      "Bash(mv rest.mp4 休息一下.mp3)",
+      "Bash(rm rest.caf)",
+      "Bash(say -v Samantha \"休息一下\" -o rest.aiff)",
+      "Bash(afconvert rest.aiff -f MP4F -d aac@44100 rest.m4a)",
+      "Bash(mv rest.m4a 休息一下.mp3)",
+      "Bash(rm rest.aiff)",
+      "mcp__MiniMax__web_search"
     ]
   }
 }

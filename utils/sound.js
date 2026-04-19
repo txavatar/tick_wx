@@ -32,14 +32,10 @@ function playTick() {
   const audio = getTickAudio();
   audio.src = 'assets/audio/tick.mp3';
   audio.play();
-  audio.onPlay(() => {
-    console.log('Tick playing');
-  });
   audio.onEnded(() => {
     isPlaying = false;
   });
-  audio.onError((err) => {
-    console.log('Tick error:', err);
+  audio.onError(() => {
     isPlaying = false;
   });
 
@@ -62,11 +58,10 @@ function playCountdownVoice(num) {
   audio.stop();
   audio.src = url;
   audio.play();
-  audio.onError((err) => {
-    console.log('Voice error:', err);
+  audio.onError(() => {
+    console.log('Voice error');
   });
 
-  // 配合震动
   if (vibrationEnabled) {
     if (num === 3) {
       wx.vibrateShort({ type: 'medium' });
@@ -77,6 +72,24 @@ function playCountdownVoice(num) {
       wx.vibrateShort({ type: 'heavy' });
     }
   }
+}
+
+function playPhaseVoice(phase) {
+  const voiceUrls = {
+    'rest': 'assets/audio/rest.mp3',
+    'work': 'assets/audio/go.mp3'
+  };
+
+  const url = voiceUrls[phase];
+  if (!url) return;
+
+  const audio = getVoiceAudio();
+  audio.stop();
+  audio.src = url;
+  audio.play();
+  audio.onError(() => {
+    console.log('Phase voice error');
+  });
 }
 
 function playBeep() {
@@ -122,6 +135,7 @@ function stop() {
 module.exports = {
   playTick,
   playCountdownVoice,
+  playPhaseVoice,
   playBeep,
   playComplete,
   vibrateLong,
