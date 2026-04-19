@@ -1,6 +1,7 @@
 const app = getApp();
 const storage = require('../../utils/storage.js');
 const timer = require('../../utils/timer.js');
+const sound = require('../../utils/sound.js');
 
 Page({
   data: {
@@ -165,17 +166,13 @@ Page({
   pauseTimer() {
     this.timerInstance.pause();
     this.setData({ isRunning: false, isPaused: true });
-    if (this.data.vibrationEnabled) {
-      wx.vibrateShort({ type: 'medium' });
-    }
+    sound.vibrateShort();
   },
 
   resumeTimer() {
     this.timerInstance.resume();
     this.setData({ isRunning: true, isPaused: false });
-    if (this.data.vibrationEnabled) {
-      wx.vibrateShort({ type: 'medium' });
-    }
+    sound.vibrateShort();
   },
 
   stopTimer() {
@@ -191,9 +188,7 @@ Page({
   },
 
   onPhaseStart() {
-    if (this.data.vibrationEnabled) {
-      wx.vibrateLong({ type: 'heavy' });
-    }
+    sound.playBeep();
   },
 
   onTick(remaining, phase, currentSet, totalSets) {
@@ -204,42 +199,20 @@ Page({
       progress: this.calculateProgress(currentSet, totalSets, remaining)
     });
 
-    if (!this.data.vibrationEnabled) return;
-
     if (remaining <= 3 && remaining > 0) {
-      if (remaining === 3) {
-        wx.vibrateShort({ type: 'heavy' });
-        setTimeout(() => wx.vibrateShort({ type: 'medium' }), 100);
-      } else if (remaining === 2) {
-        wx.vibrateShort({ type: 'heavy' });
-        setTimeout(() => wx.vibrateShort({ type: 'medium' }), 100);
-        setTimeout(() => wx.vibrateShort({ type: 'medium' }), 200);
-      } else if (remaining === 1) {
-        wx.vibrateShort({ type: 'heavy' });
-        setTimeout(() => wx.vibrateShort({ type: 'medium' }), 100);
-        setTimeout(() => wx.vibrateShort({ type: 'medium' }), 200);
-        setTimeout(() => wx.vibrateShort({ type: 'heavy' }), 300);
-      }
-    } else {
-      wx.vibrateShort({ type: 'light' });
+      sound.playCountdownVoice(remaining);
+    } else if (remaining > 0) {
+      sound.playTick();
     }
   },
 
   onPhaseChange(prevPhase, newPhase) {
-    if (this.data.vibrationEnabled) {
-      wx.vibrateLong({ type: 'heavy' });
-      setTimeout(() => wx.vibrateShort({ type: 'medium' }), 150);
-    }
+    sound.playBeep();
     this.updatePhaseDisplay(newPhase);
   },
 
   onComplete() {
-    if (this.data.vibrationEnabled) {
-      wx.vibrateLong({ type: 'heavy' });
-      setTimeout(() => wx.vibrateShort({ type: 'heavy' }), 200);
-      setTimeout(() => wx.vibrateShort({ type: 'heavy' }), 400);
-      setTimeout(() => wx.vibrateShort({ type: 'heavy' }), 600);
-    }
+    sound.playComplete();
     this.finishTimer('completed');
   },
 
